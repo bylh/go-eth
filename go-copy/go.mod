@@ -22,6 +22,7 @@ require (
 	github.com/go-eth/go-copy/service/auth_service v0.0.0-00010101000000-000000000000 // indirect
 	github.com/go-eth/go-copy/service/cache_service v0.0.0-00010101000000-000000000000 // indirect
 	github.com/go-eth/go-copy/service/tag_service v0.0.0-00010101000000-000000000000 // indirect
+	github.com/go-eth/go-copy/service/trade_service v0.0.0-00010101000000-000000000000 // indirect
 	gopkg.in/ini.v1 v1.44.0 // indirect
 )
 
@@ -40,6 +41,8 @@ replace github.com/go-eth/go-copy/service/auth_service => ./service/auth_service
 replace github.com/go-eth/go-copy/service/cache_service => ./service/cache_service
 
 replace github.com/go-eth/go-copy/service/tag_service => ./service/tag_service
+
+replace github.com/go-eth/go-copy/service/trade_service => ./service/trade_service
 
 replace github.com/go-eth/go-copy/pkg/app => ./pkg/app
 

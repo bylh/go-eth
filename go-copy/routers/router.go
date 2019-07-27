@@ -14,6 +14,7 @@ import (
 	"github.com/go-eth/go-copy/pkg/qrcode"
 	"github.com/go-eth/go-copy/pkg/upload"
 	"github.com/go-eth/go-copy/routers/api"
+	"github.com/go-eth/go-copy/routers/api/trade"
 	"github.com/go-eth/go-copy/routers/api/v1"
 )
 
@@ -31,6 +32,7 @@ func InitRouter() *gin.Engine {
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	r.POST("/upload", api.UploadImage)
 
+	r.GET("/trade/test", trade.Test)
 	apiv1 := r.Group("/api/v1")
 	apiv1.Use(jwt.JWT())
 	{
