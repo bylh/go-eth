@@ -22,7 +22,7 @@ Create a **blog database** and import [SQL](https://github.com/go-eth/blob/maste
 
 ### Conf
 
-You should modify `conf/app.ini`
+You should modify `extra/trade/app.ini`
 
 ```
 [database]

@@ -44,7 +44,7 @@ $ go get github.com/go-eth
 
 ### 配置
 
-你应该修改 `conf/app.ini` 配置文件
+你应该修改 `extra/trade/app.ini` 配置文件
 
 ```
 [database]
