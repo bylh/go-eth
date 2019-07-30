@@ -3,6 +3,7 @@ module go-copy
 go 1.12
 
 require (
+	github.com/deckarep/golang-set v1.7.1 // indirect
 	github.com/gin-gonic/gin v1.4.0
 	github.com/go-eth/go-copy/docs v0.0.0-00010101000000-000000000000 // indirect
 	github.com/go-eth/go-copy/middleware/jwt v0.0.0-00010101000000-000000000000 // indirect
@@ -22,7 +23,11 @@ require (
 	github.com/go-eth/go-copy/service/auth_service v0.0.0-00010101000000-000000000000 // indirect
 	github.com/go-eth/go-copy/service/cache_service v0.0.0-00010101000000-000000000000 // indirect
 	github.com/go-eth/go-copy/service/tag_service v0.0.0-00010101000000-000000000000 // indirect
-	github.com/go-eth/go-copy/service/trade_service v0.0.0-00010101000000-000000000000 // indirect
+	github.com/go-openapi/errors v0.19.2 // indirect
+	github.com/google/uuid v1.1.1 // indirect
+	github.com/gorilla/websocket v1.4.0 // indirect
+	github.com/nntaoli-project/GoEx v1.0.3
+	github.com/nubo/jwt v0.0.0-20150918093313-da5b79c3bbaf // indirect
 	gopkg.in/ini.v1 v1.44.0 // indirect
 )
 
@@ -41,8 +46,6 @@ replace github.com/go-eth/go-copy/service/auth_service => ./service/auth_service
 replace github.com/go-eth/go-copy/service/cache_service => ./service/cache_service
 
 replace github.com/go-eth/go-copy/service/tag_service => ./service/tag_service
-
-replace github.com/go-eth/go-copy/service/trade_service => ./service/trade_service
 
 replace github.com/go-eth/go-copy/pkg/app => ./pkg/app
 

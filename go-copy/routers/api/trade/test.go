@@ -5,7 +5,7 @@ import (
 	"github.com/go-eth/go-copy/pkg/app"
 	"github.com/go-eth/go-copy/pkg/e"
 	"net/http"
-	//"github.com/go-eth/go-copy/service/trade_service"
+	// "github.com/go-eth/go-copy/service/trade_service"
 )
 
 func Test(c *gin.Context) {
