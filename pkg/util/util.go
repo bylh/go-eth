@@ -1,6 +1,6 @@
 package util
 
-import "github.com/go-eth/pkg/setting"
+import "go-eth/pkg/setting"
 
 // Setup Initialize the util
 func Setup() {

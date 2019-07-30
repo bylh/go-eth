@@ -1,6 +1,6 @@
 package export
 
-import "github.com/go-eth/pkg/setting"
+import "go-eth/pkg/setting"
 
 const EXT = ".xlsx"
 

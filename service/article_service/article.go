@@ -3,10 +3,10 @@ package article_service
 import (
 	"encoding/json"
 
-	"github.com/go-eth/models"
-	"github.com/go-eth/pkg/gredis"
-	"github.com/go-eth/pkg/logging"
-	"github.com/go-eth/service/cache_service"
+	"go-eth/models"
+	"go-eth/pkg/gredis"
+	"go-eth/pkg/logging"
+	"go-eth/service/cache_service"
 )
 
 type Article struct {

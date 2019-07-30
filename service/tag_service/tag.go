@@ -9,12 +9,12 @@ import (
 	"github.com/360EntSecGroup-Skylar/excelize"
 	"github.com/tealeg/xlsx"
 
-	"github.com/go-eth/models"
-	"github.com/go-eth/pkg/export"
-	"github.com/go-eth/pkg/file"
-	"github.com/go-eth/pkg/gredis"
-	"github.com/go-eth/pkg/logging"
-	"github.com/go-eth/service/cache_service"
+	"go-eth/models"
+	"go-eth/pkg/export"
+	"go-eth/pkg/file"
+	"go-eth/pkg/gredis"
+	"go-eth/pkg/logging"
+	"go-eth/service/cache_service"
 )
 
 type Tag struct {

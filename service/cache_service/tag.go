@@ -4,7 +4,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/go-eth/pkg/e"
+	"go-eth/pkg/e"
 )
 
 type Tag struct {

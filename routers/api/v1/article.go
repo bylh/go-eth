@@ -8,13 +8,13 @@ import (
 	"github.com/boombuler/barcode/qr"
 	"github.com/gin-gonic/gin"
 
-	"github.com/go-eth/pkg/app"
-	"github.com/go-eth/pkg/e"
-	"github.com/go-eth/pkg/qrcode"
-	"github.com/go-eth/pkg/setting"
-	"github.com/go-eth/pkg/util"
-	"github.com/go-eth/service/article_service"
-	"github.com/go-eth/service/tag_service"
+	"go-eth/pkg/app"
+	"go-eth/pkg/e"
+	"go-eth/pkg/qrcode"
+	"go-eth/pkg/setting"
+	"go-eth/pkg/util"
+	"go-eth/service/article_service"
+	"go-eth/service/tag_service"
 )
 
 // @Summary Get a single article

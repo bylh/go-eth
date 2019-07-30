@@ -8,10 +8,10 @@ import (
 	"path"
 	"strings"
 
-	"github.com/go-eth/pkg/file"
-	"github.com/go-eth/pkg/logging"
-	"github.com/go-eth/pkg/setting"
-	"github.com/go-eth/pkg/util"
+	"go-eth/pkg/file"
+	"go-eth/pkg/logging"
+	"go-eth/pkg/setting"
+	"go-eth/pkg/util"
 )
 
 // GetImageFullUrl get the full access path

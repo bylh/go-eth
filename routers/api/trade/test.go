@@ -2,11 +2,11 @@ package trade
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/go-eth/pkg/app"
-	"github.com/go-eth/pkg/e"
+	"go-eth/pkg/app"
+	"go-eth/pkg/e"
 	"net/http"
 	"go-eth/service/trade_service"
-	"github.com/go-eth/pkg/setting"
+	"go-eth/pkg/setting"
 )
 
 func Test(c *gin.Context) {

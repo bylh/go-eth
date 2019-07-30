@@ -1,6 +1,6 @@
 package auth_service
 
-import "github.com/go-eth/models"
+import "go-eth/models"
 
 type Auth struct {
 	Username string

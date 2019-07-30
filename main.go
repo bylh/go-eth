@@ -7,12 +7,12 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/go-eth/models"
-	"github.com/go-eth/pkg/gredis"
-	"github.com/go-eth/pkg/logging"
-	"github.com/go-eth/pkg/setting"
-	"github.com/go-eth/routers"
-	"github.com/go-eth/pkg/util"
+	"go-eth/models"
+	"go-eth/pkg/gredis"
+	"go-eth/pkg/logging"
+	"go-eth/pkg/setting"
+	"go-eth/routers"
+	"go-eth/pkg/util"
 )
 
 func init() {
@@ -28,7 +28,7 @@ func init() {
 // @description An example of gin
 // @termsOfService https://github.com/go-eth
 // @license.name MIT
-// @license.url https://github.com/go-eth/blob/master/LICENSE
+// @license.url https://go-eth/blob/master/LICENSE
 func main() {
 	gin.SetMode(setting.ServerSetting.RunMode)
 

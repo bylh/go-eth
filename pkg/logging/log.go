@@ -2,7 +2,7 @@ package logging
 
 import (
 	"fmt"
-	"github.com/go-eth/pkg/file"
+	"go-eth/pkg/file"
 	"log"
 	"os"
 	"path/filepath"

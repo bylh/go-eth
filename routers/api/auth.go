@@ -6,10 +6,10 @@ import (
 	"github.com/astaxie/beego/validation"
 	"github.com/gin-gonic/gin"
 
-	"github.com/go-eth/pkg/app"
-	"github.com/go-eth/pkg/e"
-	"github.com/go-eth/pkg/util"
-	"github.com/go-eth/service/auth_service"
+	"go-eth/pkg/app"
+	"go-eth/pkg/e"
+	"go-eth/pkg/util"
+	"go-eth/service/auth_service"
 )
 
 type auth struct {
