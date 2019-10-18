@@ -5,8 +5,8 @@
 package docs
 
 import (
+    "log"
 	"bytes"
-
 	"github.com/alecthomas/template"
 	"github.com/swaggo/swag"
 )
@@ -586,6 +586,7 @@ var SwaggerInfo swaggerInfo
 type s struct{}
 
 func (s *s) ReadDoc() string {
+    log.Println("docs ReadDoc");
 	t, err := template.New("swagger_info").Parse(doc)
 	if err != nil {
 		return doc
@@ -600,5 +601,8 @@ func (s *s) ReadDoc() string {
 }
 
 func init() {
+    //  str := "docs init"
+    log.Println("docs init");
+    // *** docs包在router中以下划线_ 的方式引入，只引用执行init函数，在init函数中swag进行注册，继承ReadDoc方法
 	swag.Register(swag.Name, &s{})
 }
