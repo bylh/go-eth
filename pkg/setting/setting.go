@@ -1,6 +1,7 @@
 package setting
 
 import (
+	"fmt"
 	"log"
 	"time"
 
@@ -57,23 +58,33 @@ type Redis struct {
 	MaxActive   int
 	IdleTimeout time.Duration
 }
+
 var RedisSetting = &Redis{}
 
 type Trade struct {
-	HuobiKey   string
+	HuobiKey    string
 	HuobiSecret string
 }
+
 var TradeSetting = &Trade{}
 var cfg *ini.File
 
 // Setup initialize the configuration instance
 func Setup() {
+	fmt.Println("Setup start")
 	var err error
+	// 读取配置文件
 	cfg, err = ini.Load("extra/trade/app.ini")
+	// 读取失败处理
+	fmt.Println("Setup start read file")
 	if err != nil {
+		// 此处如果读取失败，则在fatalf中直接退出程序即os.Exit(1)，不需要手动return;
 		log.Fatalf("setting.Setup, fail to parse 'extra/trade/app.ini': %v", err)
 	}
 
+	fmt.Println("Setup read file success")
+
+	// 文件中[app]字段映射到AppSetting, 其他类同
 	mapTo("app", AppSetting)
 	mapTo("server", ServerSetting)
 	mapTo("database", DatabaseSetting)

@@ -24,4 +24,5 @@ require (
 	github.com/swaggo/swag v1.6.2
 	github.com/tealeg/xlsx v1.0.3
 	golang.org/x/image v0.0.0-20190729225735-1bd0cf576493 // indirect
+	gopkg.in/ini.v1 v1.49.0 // indirect
 )

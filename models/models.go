@@ -23,6 +23,7 @@ type Model struct {
 // Setup initializes the database instance
 func Setup() {
 	var err error
+	// 根据配置文件建立数据库连接
 	db, err = gorm.Open(setting.DatabaseSetting.Type, fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local",
 		setting.DatabaseSetting.User,
 		setting.DatabaseSetting.Password,

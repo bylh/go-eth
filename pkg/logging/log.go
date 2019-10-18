@@ -31,6 +31,7 @@ const (
 )
 
 // Setup initialize the log instance
+// 根据配置设置log文件
 func Setup() {
 	var err error
 	filePath := getLogFilePath()
