@@ -3,11 +3,13 @@ package trade_service
 import (
 	"github.com/nntaoli-project/GoEx"
 	"github.com/nntaoli-project/GoEx/builder"
+	"log"
+
 	// "log"
 	"time"
 )
 
-func Test(key string, secret string) (*goex.Ticker, error){
+func Test(key string, secret string) (*goex.Ticker, error) {
 	apiBuilder := builder.NewAPIBuilder().HttpTimeout(5 * time.Second)
 	//apiBuilder := builder.NewAPIBuilder().HttpTimeout(5 * time.Second).HttpProxy("socks5://127.0.0.1:1080")
 
@@ -27,5 +29,7 @@ func Test(key string, secret string) (*goex.Ticker, error){
 	// log.Println(futureApi.GetFutureDepth(goex.BTC_USD, goex.QUARTER_CONTRACT, 5))
 	//log.Println(futureApi.GetFutureUserinfo()) // account
 	//log.Println(futureApi.GetFuturePosition(goex.BTC_USD , goex.QUARTER_CONTRACT))//position info
+	log.Println(api.GetTicker(goex.BTC_USD))
+
 	return api.GetTicker(goex.BTC_USD)
 }
