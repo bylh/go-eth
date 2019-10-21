@@ -4,9 +4,9 @@ import (
 	"github.com/gin-gonic/gin"
 	"go-eth/pkg/app"
 	"go-eth/pkg/e"
-	"net/http"
-	"go-eth/service/trade_service"
 	"go-eth/pkg/setting"
+	"go-eth/service/trade_service"
+	"net/http"
 )
 
 func Test(c *gin.Context) {

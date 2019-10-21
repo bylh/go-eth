@@ -1,7 +1,6 @@
-
 package main
 
-/* 
+/*
 包前是下划线_：当导入一个包时，该包下的文件里所有init函数都会被执行，但是有时我们仅仅需要使用init函数而已并不希望把整个包导入（不使用包里的其他函数）
 
 包前是点.：
@@ -11,10 +10,10 @@ import（.“fmt”）
 */
 
 import (
-	_ "go-eth/docs"
 	"fmt"
+	_ "go-eth/docs"
 	"log"
-	
+
 	// 如果使用诸如 http.StatusOK 之类的常量，则需要引入 net/http 包
 	"net/http"
 	// 基本框架
@@ -24,11 +23,12 @@ import (
 	"go-eth/pkg/gredis"
 	"go-eth/pkg/logging"
 	"go-eth/pkg/setting"
-	"go-eth/routers"
 	"go-eth/pkg/util"
+	"go-eth/routers"
 )
+
 /*
- bylh: 
+ bylh:
  init()和main()是go语言中的保留函数，两个函数在go语言中的区别如下
  1、两个函数在定义时不能有任何的参数和返回值
  2、该函数只能由go程序自动调用不可以被引用
@@ -42,14 +42,14 @@ import (
 */
 /* 初始化 */
 func init() {
-	fmt.Println("开始初始化项目");
+	fmt.Println("开始初始化项目")
 	// 读取配置文件， 初始化基本配置
 	setting.Setup()
 	// 根据配置文件建立数据库连接
 	models.Setup()
 	// 根据配置设置log文件
 	logging.Setup()
-	// 根据配置文件设置redis
+	// 根据配置文件设置redis TODO 错误处理
 	gredis.Setup()
 	// 根据配置文件中app->JwtSecret设置鉴权
 	util.Setup()
@@ -79,7 +79,7 @@ func main() {
 	maxHeaderBytes := 1 << 20
 
 	server := &http.Server{
-		Addr:           endPoint, // 监听地址
+		Addr:           endPoint,    // 监听地址
 		Handler:        routersInit, // 路由等
 		ReadTimeout:    readTimeout,
 		WriteTimeout:   writeTimeout,
@@ -88,7 +88,7 @@ func main() {
 
 	log.Printf("[info] start http server listening %s", endPoint)
 
-	// serve开始监听
+	// serve开始监听 TODO 错误处理
 	server.ListenAndServe()
 
 	// If you want Graceful Restart, you need a Unix system and download github.com/fvbock/endless
