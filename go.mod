@@ -4,9 +4,11 @@ go 1.12
 
 require (
 	github.com/360EntSecGroup-Skylar/excelize v1.4.1
+	github.com/PuerkitoBio/goquery v1.5.0
 	github.com/Unknwon/com v0.0.0-20190321035513-0fed4efef755
 	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751
 	github.com/astaxie/beego v1.12.0
+	github.com/bitly/go-simplejson v0.5.0
 	github.com/boombuler/barcode v1.0.0
 	github.com/deckarep/golang-set v1.7.1 // indirect
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
@@ -23,6 +25,8 @@ require (
 	github.com/swaggo/gin-swagger v1.2.0
 	github.com/swaggo/swag v1.6.2
 	github.com/tealeg/xlsx v1.0.3
+	github.com/tophubs/TopList v0.0.0-20191017065840-0d543d217900
 	golang.org/x/image v0.0.0-20190729225735-1bd0cf576493 // indirect
+	golang.org/x/text v0.3.2
 	gopkg.in/ini.v1 v1.49.0 // indirect
 )
