@@ -11,6 +11,6 @@ import (
 func GetNews(c *gin.Context) {
 	appG := app.Gin{C: c}
 	// data, _ := news_service.fetchNews();
-	news_service.FetchNews()
-	appG.Response(http.StatusOK, e.SUCCESS, nil)
+	data := news_service.FetchNews()
+	appG.Response(http.StatusOK, e.SUCCESS, data)
 }

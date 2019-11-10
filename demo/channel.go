@@ -19,6 +19,11 @@ func sum(a []int, ch chan int) {
 	fmt.Println("消息push完毕", sum)
 }
 
+func test(ch chan int) {
+	time.Sleep(time.Second * 2)
+	ch <- 10
+}
+
 /* -------------- main函数 -------------- */
 func main() {
 	a := []int{7, 2, 8, -9, 4, 0}
@@ -27,13 +32,18 @@ func main() {
 	// 这两个顺序不一定，谁先返回先打印谁
 	go sum(a[:len(a)/2], ch) // 开启一个协程 并用 ch 作为通信通道
 	go sum(a[len(a)/2:], ch)
+	go test(ch)
 
 	fmt.Println("ch 中没有数据我将阻塞起来等数据")
-	x, y := <-ch, <-ch // 接收 ch 通道中的值
-	fmt.Println(x, y, x+y)
+	//x, y := <-ch, <-ch // 接收 ch 通道中的值
+	//fmt.Println(x, y, x+y)
 
-	//fmt.Println(<-ch)
-	//fmt.Println(<-ch)
+	fmt.Println(<-ch)
+	fmt.Println("第一个数据抓取完毕")
+	fmt.Println(<-ch)
+	fmt.Println("第二个数据抓取完毕")
+	fmt.Println(<-ch)
+	fmt.Println("第三个数据抓取完毕")
 	// 17 -5 12 或 -5 17 12
 
 }

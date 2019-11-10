@@ -31,6 +31,11 @@ type Spider struct {
 	DataType string
 }
 
+type FetchData struct {
+	Type Spider
+	Data []map[string]interface{}
+}
+
 func SaveDataToJson(data interface{}) string {
 	Message := HotData{}
 	Message.Code = 0
@@ -1360,12 +1365,13 @@ func GbkToUtf8(s []byte) ([]byte, error) {
 /**
 执行每个分类数据
 */
-func ExecGetData(spider Spider) []map[string]interface{} {
+func ExecGetData(spider Spider, ch chan FetchData) FetchData {
+	// 函数传入值为spider
 	reflectValue := reflect.ValueOf(spider)
+	// 方法类型
 	dataType := reflectValue.MethodByName("Get" + spider.DataType)
-
+	// 调用方法
 	data := dataType.Call(nil)
-	fmt.Println("测试抓取的数据", data)
 	originData := data[0].Interface().([]map[string]interface{})
 	// fmt.Println(originData)
 	start := time.Now()
@@ -1373,13 +1379,18 @@ func ExecGetData(spider Spider) []map[string]interface{} {
 	group.Done()
 	seconds := time.Since(start).Seconds()
 	fmt.Printf("耗费 %.2fs 秒完成抓取%s", seconds, spider.DataType)
-	fmt.Println()
-	return originData
+	fetchData := FetchData{
+		Type: spider,
+		Data: originData,
+	}
+	ch <- fetchData
+	return fetchData
 }
 
 var group sync.WaitGroup
 
-func FetchNews() {
+// 抓取所有消息
+func FetchNews() []FetchData {
 	allData := []string{
 		"V2EX",
 		"ZhiHu",
@@ -1409,20 +1420,36 @@ func FetchNews() {
 		"ITHome",
 	}
 	fmt.Println("开始抓取" + strconv.Itoa(len(allData)) + "种数据类型")
+
+	// 阻塞主线程，直到所有的goroutine完成（goroutine个数为传入参数）
 	group.Add(len(allData))
-	// ch := make(chan []map[string]interface{})
+
+	ch := make(chan FetchData)
 	var spider Spider
 	for _, value := range allData {
 		fmt.Println("开始抓取" + value)
 		spider = Spider{DataType: value}
-		go ExecGetData(spider)
+		go ExecGetData(spider, ch)
 		// go func(value string) {
 		// 	ExecGetData(spider)
 		// }(value)
 	}
 	group.Wait()
-	// for range allData {
-	// 	fmt.Println("123", <-ch)
-	// }
+	i := 0
+	dataArr := make([]FetchData, len(allData))
+	for range allData {
+		data := <-ch
+		fmt.Println("抓取中", i, data)
+		dataArr[i] = data
+		i++
+		//if data[0] != nil {
+		//	fmt.Println(i, ": 123", data[0]["title"])
+		//	i++
+		//} else {
+		//		fmt.Println("这个为nil")
+		//}
+
+	}
 	fmt.Print("完成抓取")
+	return dataArr
 }
