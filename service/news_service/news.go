@@ -1453,3 +1453,7 @@ func FetchNews() []FetchData {
 	fmt.Print("完成抓取")
 	return dataArr
 }
+
+func getNewsTags() {
+
+}
