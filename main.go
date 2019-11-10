@@ -19,7 +19,6 @@ import (
 	// 基本框架
 	"github.com/gin-gonic/gin"
 	// 设置https
-	"github.com/unrolled/secure"
 
 	"go-eth/models"
 	"go-eth/pkg/gredis"
@@ -70,7 +69,6 @@ func main() {
 
 	// 初始化项目路由信息
 	routersInit := routers.InitRouter()
-	routersInit.Use(TlsHandler())
 	// 设置读写超时时间
 	readTimeout := setting.ServerSetting.ReadTimeout
 	writeTimeout := setting.ServerSetting.WriteTimeout
