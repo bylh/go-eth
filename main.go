@@ -18,6 +18,8 @@ import (
 	"net/http"
 	// 基本框架
 	"github.com/gin-gonic/gin"
+	// 设置https
+	"github.com/unrolled/secure"
 
 	"go-eth/models"
 	"go-eth/pkg/gredis"
@@ -68,12 +70,13 @@ func main() {
 
 	// 初始化项目路由信息
 	routersInit := routers.InitRouter()
+	routersInit.Use(TlsHandler())
 	// 设置读写超时时间
 	readTimeout := setting.ServerSetting.ReadTimeout
 	writeTimeout := setting.ServerSetting.WriteTimeout
 
 	// Addr    string  // TCP address to listen on, ":http" if empty
-	endPoint := fmt.Sprintf(":%d", setting.ServerSetting.HttpPort) // endPoint为 :8000, 库中要求的string
+	endPoint := fmt.Sprintf(":%d", setting.ServerSetting.HttpPort) // endPoint为 :8001, 库中要求的string
 
 	// << n 左移运算符即乘以2的n次方， >> n 右移运算符即除以2的n次方 次数为1 * 2^20
 	maxHeaderBytes := 1 << 20
