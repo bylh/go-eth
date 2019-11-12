@@ -40,9 +40,11 @@ func Setup() {
 	}
 
 	db.SingularTable(true)
-	db.Callback().Create().Replace("gorm:update_time_stamp", updateTimeStampForCreateCallback)
-	db.Callback().Update().Replace("gorm:update_time_stamp", updateTimeStampForUpdateCallback)
-	db.Callback().Delete().Replace("gorm:delete", deleteCallback)
+
+	// 增删改时间处理回调函数，如重写gorm model默认字段，则需要手动在此写回调更新相应时间字段
+	//db.Callback().Create().Replace("gorm:update_time_stamp", updateTimeStampForCreateCallback)
+	//db.Callback().Update().Replace("gorm:update_time_stamp", updateTimeStampForUpdateCallback)
+	//db.Callback().Delete().Replace("gorm:delete", deleteCallback)
 	db.DB().SetMaxIdleConns(10)
 	db.DB().SetMaxOpenConns(100)
 

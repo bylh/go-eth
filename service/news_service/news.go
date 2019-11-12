@@ -19,6 +19,8 @@ import (
 	"github.com/bitly/go-simplejson"
 	"golang.org/x/text/encoding/simplifiedchinese"
 	"golang.org/x/text/transform"
+
+	"go-eth/models"
 )
 
 type HotData struct {
@@ -1439,6 +1441,14 @@ func FetchNews() []FetchData {
 	dataArr := make([]FetchData, len(allData))
 	for range allData {
 		data := <-ch
+		println("类型是否存在", ExistNewsTagByName(data.Type.DataType))
+		//&& !reflect.ValueOf(data).IsNil()
+		if !ExistNewsTagByName(data.Type.DataType) {
+			err := AddNewsTag(data.Type.DataType)
+			if err != nil {
+				fmt.Println("添加news tag 失败", data.Type.DataType)
+			}
+		}
 		fmt.Println("抓取中", i, data)
 		dataArr[i] = data
 		i++
@@ -1454,6 +1464,15 @@ func FetchNews() []FetchData {
 	return dataArr
 }
 
-func getNewsTags() {
+func ExistNewsTagByName(name string) bool {
+	exist, err := models.ExistNewsTagByName(name)
 
+	if err != nil {
+		return false
+	}
+	return exist
+}
+
+func AddNewsTag(name string) error {
+	return models.AddNewsTag(name)
 }

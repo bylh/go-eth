@@ -14,7 +14,7 @@ type NewsTag struct {
 // 查找是否存在
 func ExistNewsTagByName(name string) (bool, error) {
 	var newsTag NewsTag
-	err := db.Select("id").Where("name = ? AND deleted_on = ? ", name, 0).First(&newsTag).Error
+	err := db.Select("id").Where("name = ?", name).First(&newsTag).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
 		return false, err
 	}
