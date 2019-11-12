@@ -49,21 +49,21 @@ func Setup() {
 	db.DB().SetMaxOpenConns(100)
 
 	//  查询数据库中的表，没有则创建
-	if (!db.HasTable(Auth{})) {
+	if (!db.HasTable(&Auth{})) {
 		db.CreateTable(Auth{})
 		fmt.Println("创建Auth表成功")
 	}
-	if (!db.HasTable(Article{})) {
-		db.CreateTable(Article{})
+	if (!db.HasTable(&Article{})) {
+		db.CreateTable(&Article{})
 		fmt.Println("创建Article表成功")
 	}
-	if (!db.HasTable(Tag{})) {
-		db.CreateTable(Tag{})
+	if (!db.HasTable(&Tag{})) {
+		db.CreateTable(&Tag{})
 		fmt.Println("创建Tag表成功")
 	}
 
-	if (!db.HasTable(NewsTag{})) {
-		db.CreateTable(NewsTag{})
+	if (!db.HasTable(&NewsTag{})) {
+		db.CreateTable(&NewsTag{})
 		fmt.Println("创建NewsTag表成功")
 	}
 
