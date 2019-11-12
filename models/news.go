@@ -3,7 +3,7 @@ package models
 import "github.com/jinzhu/gorm"
 
 type NewsTag struct {
-	Model
+	gorm.Model
 	From          string `json:"from"` // 反引号声明元信息
 	Name          string `json:"name"`
 	Title         string `json:"title"`

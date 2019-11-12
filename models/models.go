@@ -34,6 +34,7 @@ func Setup() {
 		log.Fatalf("models.Setup err: %v", err)
 	}
 
+	// 数据库表名称处理函数，默认加上'blog_'
 	gorm.DefaultTableNameHandler = func(db *gorm.DB, defaultTableName string) string {
 		return setting.DatabaseSetting.TablePrefix + defaultTableName
 	}
@@ -44,6 +45,26 @@ func Setup() {
 	db.Callback().Delete().Replace("gorm:delete", deleteCallback)
 	db.DB().SetMaxIdleConns(10)
 	db.DB().SetMaxOpenConns(100)
+
+	//  查询数据库中的表，没有则创建
+	if (!db.HasTable(Auth{})) {
+		db.CreateTable(Auth{})
+		fmt.Println("创建Auth表成功")
+	}
+	if (!db.HasTable(Article{})) {
+		db.CreateTable(Article{})
+		fmt.Println("创建Article表成功")
+	}
+	if (!db.HasTable(Tag{})) {
+		db.CreateTable(Tag{})
+		fmt.Println("创建Tag表成功")
+	}
+
+	if (!db.HasTable(NewsTag{})) {
+		db.CreateTable(NewsTag{})
+		fmt.Println("创建NewsTag表成功")
+	}
+
 }
 
 // CloseDB closes database connection (unnecessary)
