@@ -22,7 +22,24 @@ func openFile() {
 }
 
 func main() {
-	test := a()
-	fmt.Println("main函数：", test)
-	//openFile()
+	//test := a()
+	//fmt.Println("main函数：", test)
+	////openFile()
+
+	for i := 0; i < 5; i++ {
+		fmt.Println(i, "before")
+		defer fmt.Println("defer runs", i)
+		fmt.Println(i, "after")
+	}
+
+	{
+		defer fmt.Println("defer runs 5")
+		defer fmt.Println("defer runs 6")
+
+		fmt.Println("block ends")
+	}
+
+	fmt.Println("main ends")
+
+	// defer 执行顺序 defer runs 6 5 4 3 2 1 可以看出，def的执行都在最后，且def执行排序，在代码中越靠后，越先执行
 }

@@ -26,6 +26,7 @@ import (
 	"go-eth/pkg/setting"
 	"go-eth/pkg/util"
 	"go-eth/routers"
+	"go-eth/service/news_service"
 )
 
 /*
@@ -54,6 +55,9 @@ func init() {
 	gredis.Setup()
 	// 根据配置文件中app->JwtSecret设置鉴权
 	util.Setup()
+
+	// 消息接口轮询任务
+	news_service.Setup()
 }
 
 // @title Golang Gin API

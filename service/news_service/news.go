@@ -1416,7 +1416,7 @@ var group sync.WaitGroup
 
 // 抓取所有消息
 func FetchNews() []FetchData {
-	_, err := cleanAllNews()
+	_, err := CleanAllNews()
 	if err != nil {
 		log.Fatal("清除消息表出错")
 	}
@@ -1529,6 +1529,18 @@ func GetNews(maps interface{}, pageNum int, pageSize int) ([]models.News, error)
 /**
 清空所有消息
 */
-func cleanAllNews() (bool, error) {
+func CleanAllNews() (bool, error) {
 	return models.CleanAllNews()
+}
+
+// 大写的函数是默认导出的，此函数用于定时器，爬取消息
+func Setup() {
+	//FetchNews()
+	ticker := time.NewTicker(time.Hour * 24)
+	go func() {
+		for range ticker.C {
+			fmt.Println("开始抓取消息数据")
+			FetchNews()
+		}
+	}()
 }

@@ -13,8 +13,8 @@ import (
 	"go-eth/pkg/qrcode"
 	"go-eth/pkg/upload"
 	"go-eth/routers/api"
-	"go-eth/routers/api/trade"
 	"go-eth/routers/api/news"
+	"go-eth/routers/api/trade"
 	"go-eth/routers/api/v1"
 )
 
@@ -33,7 +33,7 @@ func InitRouter() *gin.Engine {
 	r.POST("/upload", api.UploadImage)
 
 	r.GET("/trade/test", trade.Test)
-	r.GET("/news", news.GetNews);
+	r.GET("/news", news.GetNews)
 	apiv1 := r.Group("/api/v1")
 	apiv1.Use(jwt.JWT())
 	{

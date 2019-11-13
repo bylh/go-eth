@@ -155,7 +155,7 @@ func GetNews(maps interface{}, pageNum int, pageSize int) ([]News, error) {
 		// 此处注意 find(&news)要放到最后，因为传地址修改news要在最后一步赋值
 		err = db.Model(&News{}).Where(maps).Offset(pageNum).Limit(pageSize).Find(&news).Error
 	} else {
-		err = db.Where(maps).Find(&news).Error
+		err = db.Model(&News{}).Where(maps).Find(&news).Error
 	}
 
 	if err != nil && err != gorm.ErrRecordNotFound {
