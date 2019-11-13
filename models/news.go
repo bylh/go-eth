@@ -1,6 +1,8 @@
 package models
 
-import "github.com/jinzhu/gorm"
+import (
+	"github.com/jinzhu/gorm"
+)
 
 type NewsTag struct {
 	gorm.Model
@@ -103,6 +105,46 @@ func EditNewsTag(id int, data interface{}) error {
 // CleanAllTag clear all tag
 func CleanAllNewsTag() (bool, error) {
 	if err := db.Unscoped().Where("deleted_on != ? ", 0).Delete(&NewsTag{}).Error; err != nil {
+		return false, err
+	}
+
+	return true, nil
+}
+
+/* ---------------------------------------------- news --------------------------------------------------- */
+
+type News struct {
+	gorm.Model
+	From          string `json:"from"`            // 来源
+	Tag           string `json:"tag"`             // 标签
+	Title         string `json:"title"`           // 标题
+	Url           string `json:"url"`             // url
+	Desc          string `json:"desc"`            // 描述
+	CoverImageUrl string `json:"cover_image_url"` // 图片
+}
+
+func AddNews(data map[string]interface{}) error {
+	//from := data["from"]
+	//if from == nil {
+	//	from = ""
+	//}
+	news := News{
+		From:  data["from"].(string),
+		Tag:   data["tag"].(string),
+		Title: data["title"].(string),
+		Url:   data["url"].(string),
+	}
+
+	//err := db.Model(&News{}).Create()
+	if err := db.Create(&news).Error; err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func CleanAllNews() (bool, error) {
+	if err := db.Unscoped().Delete(&News{}).Error; err != nil {
 		return false, err
 	}
 

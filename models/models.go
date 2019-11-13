@@ -67,6 +67,10 @@ func Setup() {
 		fmt.Println("创建NewsTag表成功")
 	}
 
+	if (!db.HasTable(&News{})) {
+		db.CreateTable(&News{})
+		fmt.Println("创建News表成功")
+	}
 }
 
 // CloseDB closes database connection (unnecessary)

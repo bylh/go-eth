@@ -1385,6 +1385,29 @@ func ExecGetData(spider Spider, ch chan FetchData) FetchData {
 		Type: spider,
 		Data: originData,
 	}
+	if len(fetchData.Data) > 0 {
+		//fmt.Println(reflect.TypeOf(data.Data[0]["url"]), data.Data[0]["url"])
+		for i, item := range fetchData.Data {
+			url := item["url"]
+			title := item["title"]
+
+			if url == nil {
+				url = ""
+			}
+			if title == nil {
+				title = ""
+			}
+			err := AddNews(map[string]interface{}{
+				"from":  fetchData.Type.DataType,
+				"tag":   fetchData.Type.DataType,
+				"url":   url,
+				"title": title,
+			})
+			if err == nil {
+				fmt.Println(fetchData.Type.DataType, i, "插入成功")
+			}
+		}
+	}
 	ch <- fetchData
 	return fetchData
 }
@@ -1393,6 +1416,10 @@ var group sync.WaitGroup
 
 // 抓取所有消息
 func FetchNews() []FetchData {
+	_, err := cleanAllNews()
+	if err != nil {
+		log.Fatal("清除消息表出错")
+	}
 	allData := []string{
 		"V2EX",
 		"ZhiHu",
@@ -1441,7 +1468,6 @@ func FetchNews() []FetchData {
 	dataArr := make([]FetchData, len(allData))
 	for range allData {
 		data := <-ch
-		println("类型是否存在", ExistNewsTagByName(data.Type.DataType))
 		//&& !reflect.ValueOf(data).IsNil()
 		if !ExistNewsTagByName(data.Type.DataType) {
 			err := AddNewsTag(data.Type.DataType)
@@ -1449,7 +1475,11 @@ func FetchNews() []FetchData {
 				fmt.Println("添加news tag 失败", data.Type.DataType)
 			}
 		}
-		fmt.Println("抓取中", i, data)
+
+		//if !reflect.ValueOf(data).IsNil() {
+		//
+		//}
+		//fmt.Println("抓取中", i, data.Type, len(data.Data))
 		dataArr[i] = data
 		i++
 		//if data[0] != nil {
@@ -1475,4 +1505,12 @@ func ExistNewsTagByName(name string) bool {
 
 func AddNewsTag(name string) error {
 	return models.AddNewsTag(name)
+}
+
+func AddNews(data map[string]interface{}) error {
+	return models.AddNews(data)
+}
+
+func cleanAllNews() (bool, error) {
+	return models.CleanAllNews()
 }
