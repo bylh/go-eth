@@ -49,7 +49,7 @@ func GetNewsTags(maps interface{}, pageNum int, pageSize int) ([]NewsTag, error)
 	)
 
 	if pageSize > 0 && pageNum > 0 {
-		err = db.Where(maps).Find(&tags).Offset(pageNum).Limit(pageSize).Error
+		err = db.Where(maps).Offset(pageNum).Limit(pageSize).Find(&tags).Error
 	} else {
 		err = db.Where(maps).Find(&tags).Error
 	}
@@ -152,7 +152,8 @@ func GetNews(maps interface{}, pageNum int, pageSize int) ([]News, error) {
 
 	fmt.Println("测试条件", pageNum, pageSize, pageSize > 0 && pageNum > 0)
 	if pageSize > 0 && pageNum > 0 {
-		err = db.Model(&News{}).Where(maps).Find(&news).Offset(pageNum).Limit(pageSize).Error
+		// 此处注意 find(&news)要放到最后，因为传地址修改news要在最后一步赋值
+		err = db.Model(&News{}).Where(maps).Offset(pageNum).Limit(pageSize).Find(&news).Error
 	} else {
 		err = db.Where(maps).Find(&news).Error
 	}
