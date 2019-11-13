@@ -1507,10 +1507,28 @@ func AddNewsTag(name string) error {
 	return models.AddNewsTag(name)
 }
 
+/**
+添加消息
+*/
 func AddNews(data map[string]interface{}) error {
 	return models.AddNews(data)
 }
 
+/**
+获取消息
+*/
+func GetNews(maps interface{}, pageNum int, pageSize int) ([]models.News, error) {
+	news, err := models.GetNews(maps, pageNum, pageSize)
+
+	if err != nil {
+		return nil, err
+	}
+	return news, nil
+}
+
+/**
+清空所有消息
+*/
 func cleanAllNews() (bool, error) {
 	return models.CleanAllNews()
 }

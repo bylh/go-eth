@@ -1,6 +1,7 @@
 package models
 
 import (
+	"fmt"
 	"github.com/jinzhu/gorm"
 )
 
@@ -41,7 +42,7 @@ func AddNewsTag(name string) error {
 }
 
 // GetTags gets a list of tags based on paging and constraints
-func GetNewsTags(pageNum int, pageSize int, maps interface{}) ([]NewsTag, error) {
+func GetNewsTags(maps interface{}, pageNum int, pageSize int) ([]NewsTag, error) {
 	var (
 		tags []NewsTag
 		err  error
@@ -141,6 +142,26 @@ func AddNews(data map[string]interface{}) error {
 	}
 
 	return nil
+}
+
+func GetNews(maps interface{}, pageNum int, pageSize int) ([]News, error) {
+	var (
+		news []News
+		err  error
+	)
+
+	fmt.Println("测试条件", pageNum, pageSize, pageSize > 0 && pageNum > 0)
+	if pageSize > 0 && pageNum > 0 {
+		err = db.Model(&News{}).Where(maps).Find(&news).Offset(pageNum).Limit(pageSize).Error
+	} else {
+		err = db.Where(maps).Find(&news).Error
+	}
+
+	if err != nil && err != gorm.ErrRecordNotFound {
+		return nil, err
+	}
+
+	return news, nil
 }
 
 func CleanAllNews() (bool, error) {
