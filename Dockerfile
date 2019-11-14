@@ -1,11 +1,19 @@
-FROM golang:latest
-
-WORKDIR $GOPATH/src/github.com/EDDYCJY/go-gin-example
-COPY . $GOPATH/src/github.com/EDDYCJY/go-gin-example
+FROM alpine
+MAINTAINER "bylh"
+WORKDIR /home/bylicx/pro/go-eth
+ADD . /home/bylicx/pro/go-eth
 RUN go build .
+EXPOSE 8001
+ENTRYPOINT ["./go-eth"]
 
-EXPOSE 8000
-ENTRYPOINT ["./go-gin-example"]
+#FROM golang:latest
+#
+#WORKDIR $GOPATH/src/github.com/EDDYCJY/go-gin-example
+#COPY . $GOPATH/src/github.com/EDDYCJY/go-gin-example
+#RUN go build .
+#
+#EXPOSE 8000
+#ENTRYPOINT ["./go-gin-example"]
 
 #FROM scratch
 
