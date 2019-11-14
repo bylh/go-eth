@@ -6,6 +6,8 @@ RUN go build .
 EXPOSE 8001
 ENTRYPOINT ["./go-eth"]
 
+#docker build -t go-eth .
+
 #FROM golang:latest
 #
 #WORKDIR $GOPATH/src/github.com/EDDYCJY/go-gin-example
