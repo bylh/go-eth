@@ -2,11 +2,14 @@ FROM alpine
 MAINTAINER "bylh"
 WORKDIR /home/bylicx/pro/go-eth
 ADD . /home/bylicx/pro/go-eth
-RUN go build .
+#RUN go build .  # 此命令在debain会报内存溢出，不知道什么，用如下命令，去除无用信息可编译成功
+RUN go build -ldflags "-s -w"
 EXPOSE 8001
 ENTRYPOINT ["./go-eth"]
 
 #docker build -t go-eth .
+
+# go build -ldflags "-s -w"
 
 #FROM golang:latest
 #
