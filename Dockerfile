@@ -6,7 +6,7 @@ ADD . /home/bylicx/pro/go-eth
 RUN go build -ldflags "-s -w"
 EXPOSE 8001
 ENTRYPOINT ["./go-eth"]
-
+CMD ["/bin/bash", "./build.sh"]
 #docker build -t go-eth .
 
 # go build -ldflags "-s -w"
