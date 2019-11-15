@@ -1,14 +1,14 @@
-#FROM golang:alpine as builder # success
-FROM golang:alpine
+FROM golang:alpine as builder
+#FROM golang:alpine
 
-#RUN apk add --no-cache bash # success
+RUN apk add --no-cache bash
 
 #ENV GOPROXY https://goproxy.cn,direct
 WORKDIR /bylh/go-eth
 COPY . /bylh/go-eth
-#RUN CGO_ENABLED=0 go build . # success
+RUN CGO_ENABLED=0 go build .
 # gin.SetMode(gin.ReleaseMode) 可以在程序中设置生产模式
-RUN GIN_MODE=release go build .
+#RUN GIN_MODE=release go build .
 EXPOSE 8001
 ENTRYPOINT ["./go-eth"]
 
