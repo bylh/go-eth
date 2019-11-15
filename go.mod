@@ -14,9 +14,11 @@ require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gin-gonic/gin v1.4.0
 	github.com/go-ini/ini v1.44.0
+	github.com/go-openapi/errors v0.19.2 // indirect
 	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0
 	github.com/gomodule/redigo v2.0.0+incompatible
 	github.com/google/uuid v1.1.1 // indirect
+	github.com/gorilla/websocket v1.4.1 // indirect
 	github.com/jinzhu/gorm v1.9.10
 	github.com/nntaoli-project/GoEx v1.0.3
 	github.com/nubo/jwt v0.0.0-20150918093313-da5b79c3bbaf // indirect
