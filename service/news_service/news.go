@@ -1517,7 +1517,7 @@ func AddNews(data map[string]interface{}) error {
 /**
 获取消息
 */
-func GetNews(maps interface{}, pageNum int, pageSize int) ([]models.News, error) {
+func GetNews(maps map[string]interface{}, pageNum int, pageSize int) ([]models.News, error) {
 	news, err := models.GetNews(maps, pageNum, pageSize)
 
 	if err != nil {

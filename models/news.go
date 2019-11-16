@@ -144,13 +144,27 @@ func AddNews(data map[string]interface{}) error {
 	return nil
 }
 
-func GetNews(maps interface{}, pageNum int, pageSize int) ([]News, error) {
+func GetNews(maps map[string]interface{}, pageNum int, pageSize int) ([]News, error) {
 	var (
 		news []News
 		err  error
 	)
+	fmt.Println("tag", maps["tag"])
+	fmt.Println("测试条件", pageNum, pageSize, pageSize > 0 && pageNum > 0, maps["tag"])
+	//db.Exec(); // 一般来说用于执行增删改
+	// db.Raw(); // 用于查询
+	//SELECT * FROM blog.blog_news WHERE id >= ((SELECT MAX(id) FROM blog.blog_news)-(SELECT MIN(id) FROM blog.blog_news)) * RAND() + (SELECT MIN(id) FROM blog.blog_news) LIMIT 10
+	// 随机查询10条记录
+	if maps["tag"] == "" {
+		if pageSize == 0 {
+			pageSize = 10
+		}
+		querySql := fmt.Sprintf("SELECT * FROM blog.blog_news WHERE id >= ((SELECT MAX(id) FROM blog.blog_news)-(SELECT MIN(id) FROM blog.blog_news)) * RAND() + (SELECT MIN(id) FROM blog.blog_news) LIMIT %d", pageSize)
+		fmt.Println("随机获取数据")
+		db.Raw(querySql).Scan(&news)
+		return news, nil
+	}
 
-	fmt.Println("测试条件", pageNum, pageSize, pageSize > 0 && pageNum > 0)
 	if pageSize > 0 && pageNum > 0 {
 		// 此处注意 find(&news)要放到最后，因为传地址修改news要在最后一步赋值
 		err = db.Model(&News{}).Where(maps).Offset(pageNum).Limit(pageSize).Find(&news).Error

@@ -42,4 +42,6 @@ func main() {
 	fmt.Println("main ends")
 
 	// defer 执行顺序 defer runs 6 5 4 3 2 1 可以看出，def的执行都在最后，且def执行排序，在代码中越靠后，越先执行
+
+	// defer在函数return后执行 一般用来释放资源，否则每个返回的地方都要手动调用释放资源的代码
 }
