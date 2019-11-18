@@ -34,6 +34,8 @@ func Setup() {
 		log.Fatalf("models.Setup err: %v", err)
 	}
 
+	// 启动数据库log
+	db.LogMode(true)
 	// 数据库表名称处理函数，默认加上'blog_'
 	gorm.DefaultTableNameHandler = func(db *gorm.DB, defaultTableName string) string {
 		return setting.DatabaseSetting.TablePrefix + defaultTableName
