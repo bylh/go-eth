@@ -30,7 +30,7 @@ EXPOSE 8001
 CMD ["./go-eth"]
 
 #docker build -t go-eth . # 构建
-#docker run -p 8001:8001 -d go-eth # 运行
+#docker run --name=news -p 8001:8001 -d go-eth # 运行
 
 # /* ------------------------- EDN ------------------------------- */
 
