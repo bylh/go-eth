@@ -1,6 +1,7 @@
 package routers
 
 import (
+	"go-eth/routers/api/proxy"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -64,5 +65,7 @@ func InitRouter() *gin.Engine {
 		apiv1.POST("/articles/poster/generate", v1.GenerateArticlePoster)
 	}
 
+	// https://github.com/gin-gonic/gin/issues/686
+	r.GET("/netdata", proxy.ReverseProxy("http://34.84.129.188:19999"))
 	return r
 }
