@@ -20,3 +20,14 @@ func GetNews(c *gin.Context) {
 	data, _ := news_service.GetNews(maps, pageNum, pageSize)
 	appG.Response(http.StatusOK, e.SUCCESS, data)
 }
+
+func GetNewsTags(c *gin.Context) {
+	appG := app.Gin{C: c}
+	// data, _ := news_service.fetchNews();
+	pageNum, _ := strconv.Atoi(c.Query("pageNum"))
+	pageSize, _ := strconv.Atoi(c.Query("pageSize"))
+
+	maps := map[string]interface{}{}
+	data, _ := news_service.GetNewsTags(maps, pageNum, pageSize)
+	appG.Response(http.StatusOK, e.SUCCESS, data)
+}

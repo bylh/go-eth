@@ -1470,7 +1470,11 @@ func FetchNews() []FetchData {
 		data := <-ch
 		//&& !reflect.ValueOf(data).IsNil()
 		if !ExistNewsTagByName(data.Type.DataType) {
-			err := AddNewsTag(data.Type.DataType)
+			err := AddNewsTag(map[string]interface{}{
+				"name":  data.Type.DataType,
+				"from":  data.Type.DataType,
+				"title": data.Type.DataType,
+			})
 			if err != nil {
 				fmt.Println("添加news tag 失败", data.Type.DataType)
 			}
@@ -1503,8 +1507,16 @@ func ExistNewsTagByName(name string) bool {
 	return exist
 }
 
-func AddNewsTag(name string) error {
-	return models.AddNewsTag(name)
+func AddNewsTag(tag map[string]interface{}) error {
+	return models.AddNewsTag(tag)
+}
+func GetNewsTags(maps map[string]interface{}, pageNum int, pageSize int) ([]models.NewsTag, error) {
+	newsTags, err := models.GetNewsTags(maps, pageNum, pageSize)
+
+	if err != nil {
+		return nil, err
+	}
+	return newsTags, nil
 }
 
 /**

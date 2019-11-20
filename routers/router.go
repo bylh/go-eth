@@ -1,7 +1,6 @@
 package routers
 
 import (
-	"go-eth/routers/api/proxy"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -34,7 +33,17 @@ func InitRouter() *gin.Engine {
 	r.POST("/upload", api.UploadImage)
 
 	r.GET("/trade/test", trade.Test)
+	r.GET("/newsTags", news.GetNewsTags)
 	r.GET("/news", news.GetNews)
+	// https://github.com/gin-gonic/gin/issues/686
+	//apiProxy := r.Group("/hub")
+	//apiProxy.Use()
+	//{
+	//
+	//}
+	// 注意：此处为完全代理，GET方法的相对路径会直接追加到代理地址，所以内部要处理，进行替换，或者忽略
+	//r.GET("/get-hub-type", proxy.ReverseProxy("https://tophub.fun:8080", "/GetType"))
+	//r.GET("/netdata", proxy.ReverseProxy("http://bylh.top:19999", ""))
 	apiv1 := r.Group("/api/v1")
 	apiv1.Use(jwt.JWT())
 	{
@@ -64,8 +73,5 @@ func InitRouter() *gin.Engine {
 		//生成文章海报
 		apiv1.POST("/articles/poster/generate", v1.GenerateArticlePoster)
 	}
-
-	// https://github.com/gin-gonic/gin/issues/686
-	r.GET("/netdata", proxy.ReverseProxy("http://34.84.129.188:19999"))
 	return r
 }

@@ -7,7 +7,7 @@ import (
 	"net/url"
 )
 
-func ReverseProxy(target string) gin.HandlerFunc {
+func ReverseProxy(target string, replacePath string) gin.HandlerFunc {
 	uri, err := url.Parse(target)
 	if err != nil {
 		logging.Warn(err)
@@ -15,6 +15,7 @@ func ReverseProxy(target string) gin.HandlerFunc {
 
 	proxy := httputil.NewSingleHostReverseProxy(uri)
 	return func(c *gin.Context) {
+		c.Request.URL.Path = replacePath
 		proxy.ServeHTTP(c.Writer, c.Request)
 	}
 }

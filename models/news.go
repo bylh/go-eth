@@ -30,10 +30,14 @@ func ExistNewsTagByName(name string) (bool, error) {
 }
 
 // AddTag Add a NewsTag
-func AddNewsTag(name string) error {
+
+func AddNewsTag(data map[string]interface{}) error {
 	tag := NewsTag{
-		Name: name,
+		From:  data["from"].(string),
+		Title: data["title"].(string),
+		Name:  data["name"].(string),
 	}
+
 	if err := db.Create(&tag).Error; err != nil {
 		return err
 	}
@@ -42,7 +46,7 @@ func AddNewsTag(name string) error {
 }
 
 // GetTags gets a list of tags based on paging and constraints
-func GetNewsTags(maps interface{}, pageNum int, pageSize int) ([]NewsTag, error) {
+func GetNewsTags(maps map[string]interface{}, pageNum int, pageSize int) ([]NewsTag, error) {
 	var (
 		tags []NewsTag
 		err  error
