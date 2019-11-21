@@ -34,6 +34,11 @@ func Setup() {
 		log.Fatalf("models.Setup err: %v", err)
 	}
 
+	//SetMaxOpenConns用于设置最大打开的连接数
+	//SetMaxIdleConns用于设置闲置的连接数
+	//db.DB().SetMaxIdleConns(10)
+	//db.DB().SetMaxOpenConns(0)
+
 	// 启动数据库log
 	db.LogMode(true)
 	// 数据库表名称处理函数，默认加上'blog_'
