@@ -139,9 +139,10 @@ func AddNews(data map[string]interface{}) error {
 		Title: data["title"].(string),
 		Url:   data["url"].(string),
 	}
-
+	fmt.Println("向数据库添加：", news)
 	//err := db.Model(&News{}).Create()
 	if err := db.Create(&news).Error; err != nil {
+		fmt.Println("插入数据库出错：", err)
 		return err
 	}
 
