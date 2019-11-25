@@ -24,7 +24,8 @@
 # 第一步 手动打包 CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o go-eth .
 
 #FROM scratch
-FROM golang:alpine as builder
+#FROM golang:alpine as builder
+FROM alpine
 WORKDIR /bylh/go-eth
 COPY . /bylh/go-eth
 EXPOSE 8001
