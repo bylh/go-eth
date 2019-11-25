@@ -1,17 +1,17 @@
 #  ------------------------- 正常打包，体积较大 -------------------------------
-FROM golang:alpine as builder
-#FROM golang:alpine
-
-RUN apk add --no-cache bash
-
-#ENV GOPROXY https://goproxy.cn,direct
-WORKDIR /bylh/go-eth
-COPY . /bylh/go-eth
-RUN CGO_ENABLED=0 go build .
-# gin.SetMode(gin.ReleaseMode) 可以在程序中设置生产模式
-#RUN GIN_MODE=release go build .
-EXPOSE 8001
-ENTRYPOINT ["./go-eth"]
+#FROM golang:alpine as builder
+##FROM golang:alpine
+#
+#RUN apk add --no-cache bash
+#
+##ENV GOPROXY https://goproxy.cn,direct
+#WORKDIR /bylh/go-eth
+#COPY . /bylh/go-eth
+#RUN CGO_ENABLED=0 go build .
+## gin.SetMode(gin.ReleaseMode) 可以在程序中设置生产模式
+##RUN GIN_MODE=release go build .
+#EXPOSE 8001
+#ENTRYPOINT ["./go-eth"]
 
 #docker build -t go-eth . # 构建
 #docker run --name=news -p 8001:8001 -d go-eth # 运行
@@ -24,10 +24,11 @@ ENTRYPOINT ["./go-eth"]
 # 第一步 手动打包 CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o go-eth .
 
 #FROM scratch
-#WORKDIR /bylh/go-eth
-#COPY . /bylh/go-eth
-#EXPOSE 8001
-#CMD ["./go-eth"]
+FROM golang:alpine as builder
+WORKDIR /bylh/go-eth
+COPY . /bylh/go-eth
+EXPOSE 8001
+CMD ["./go-eth"]
 
 #docker build -t go-eth . # 构建
 #docker run --name=news -p 8001:8001 -d go-eth # 运行
