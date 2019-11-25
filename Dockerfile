@@ -26,6 +26,10 @@
 #FROM scratch
 #FROM golang:alpine as builder
 FROM alpine
+RUN apk update && \
+   apk add ca-certificates && \
+   update-ca-certificates && \
+   rm -rf /var/cache/apk/*
 WORKDIR /bylh/go-eth
 COPY . /bylh/go-eth
 EXPOSE 8001
