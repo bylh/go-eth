@@ -26,10 +26,12 @@
 #FROM scratch
 #FROM golang:alpine as builder
 FROM alpine
-RUN apk update && \
-   apk add ca-certificates && \
-   update-ca-certificates && \
-   rm -rf /var/cache/apk/*
+##解决alpine无法访问https的问题
+#RUN apk update && \
+#   apk add ca-certificates && \
+#   update-ca-certificates && \
+#   rm -rf /var/cache/apk/*
+RUN apk --no-cache add ca-certificates
 WORKDIR /bylh/go-eth
 COPY . /bylh/go-eth
 EXPOSE 8001
