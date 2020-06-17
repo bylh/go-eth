@@ -14,7 +14,7 @@
 #ENTRYPOINT ["./go-eth"]
 
 #docker build -t go-eth . # 构建
-#docker run -p 8001:8001 -d go-eth # 运行
+#docker run --name=news -p 8001:8001 -d go-eth # 运行
 
 
 # ------------------------- END -------------------------------
@@ -23,7 +23,15 @@
 #  ------------------------- START 先手动打包再部署，这样构建的包很小，不用过多依赖环境 -------------------------------
 # 第一步 手动打包 CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o go-eth .
 
-FROM scratch
+#FROM scratch
+#FROM golang:alpine as builder
+FROM alpine
+##解决alpine无法访问https的问题
+#RUN apk update && \
+#   apk add ca-certificates && \
+#   update-ca-certificates && \
+#   rm -rf /var/cache/apk/*
+RUN apk --no-cache add ca-certificates
 WORKDIR /bylh/go-eth
 COPY . /bylh/go-eth
 EXPOSE 8001

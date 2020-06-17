@@ -1547,7 +1547,7 @@ func CleanAllNews() (bool, error) {
 
 // 大写的函数是默认导出的，此函数用于定时器，爬取消息
 func Setup() {
-	//FetchNews()
+	FetchNews()
 	ticker := time.NewTicker(time.Hour * 24)
 	go func() {
 		for range ticker.C {
