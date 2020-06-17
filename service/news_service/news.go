@@ -1,7 +1,6 @@
 package news_service
 
 import (
-	// "github.com/tophubs/TopList/Common"
 	"bytes"
 	"encoding/json"
 	"fmt"

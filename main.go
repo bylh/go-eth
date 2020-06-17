@@ -12,6 +12,7 @@ import（.“fmt”）
 import (
 	"fmt"
 	_ "go-eth/docs"
+	"go-eth/service/news_service"
 	"log"
 
 	// 如果使用诸如 http.StatusOK 之类的常量，则需要引入 net/http 包
@@ -26,7 +27,6 @@ import (
 	"go-eth/pkg/setting"
 	"go-eth/pkg/util"
 	"go-eth/routers"
-	"go-eth/service/news_service"
 )
 
 /*
