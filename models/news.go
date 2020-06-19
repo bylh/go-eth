@@ -134,10 +134,11 @@ func AddNews(data map[string]interface{}) error {
 	//	from = ""
 	//}
 	news := News{
-		From:  data["from"].(string),
-		Tag:   data["tag"].(string),
-		Title: data["title"].(string),
-		Url:   data["url"].(string),
+		From:          data["from"].(string),
+		Tag:           data["tag"].(string),
+		Title:         data["title"].(string),
+		Url:           data["url"].(string),
+		CoverImageUrl: data["cover_image_url"].(string),
 	}
 	fmt.Println("向数据库添加：", news)
 	//err := db.Model(&News{}).Create()
