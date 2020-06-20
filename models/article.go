@@ -10,13 +10,13 @@ type Article struct {
 	TagID int `json:"tag_id" gorm:"index"`
 	Tag   Tag `json:"tag"`
 
-	Title         string `json:"title"`
-	Desc          string `json:"desc"`
-	Content       string `json:"content"`
-	CoverImageUrl string `json:"cover_image_url"`
-	CreatedBy     string `json:"created_by"`
-	ModifiedBy    string `json:"modified_by"`
-	State         int    `json:"state"`
+	Title       string `json:"title"`
+	Desc        string `json:"desc"`
+	Content     string `json:"content"`
+	CoverImgUrl string `json:"cover_img_url"`
+	CreatedBy   string `json:"created_by"`
+	ModifiedBy  string `json:"modified_by"`
+	State       int    `json:"state"`
 }
 
 // ExistArticleByID checks if an article exists based on ID
@@ -83,13 +83,13 @@ func EditArticle(id int, data interface{}) error {
 // AddArticle add a single article
 func AddArticle(data map[string]interface{}) error {
 	article := Article{
-		TagID:         data["tag_id"].(int),
-		Title:         data["title"].(string),
-		Desc:          data["desc"].(string),
-		Content:       data["content"].(string),
-		CreatedBy:     data["created_by"].(string),
-		State:         data["state"].(int),
-		CoverImageUrl: data["cover_image_url"].(string),
+		TagID:       data["tag_id"].(int),
+		Title:       data["title"].(string),
+		Desc:        data["desc"].(string),
+		Content:     data["content"].(string),
+		CreatedBy:   data["created_by"].(string),
+		State:       data["state"].(int),
+		CoverImgUrl: data["cover_img_url"].(string),
 	}
 	if err := db.Create(&article).Error; err != nil {
 		return err

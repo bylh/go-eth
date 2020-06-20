@@ -65,7 +65,7 @@ func getSegmentfault() []map[string]interface{} {
 				url = ""
 			}
 		}
-		allData = append(allData, map[string]interface{}{"title": string(text), "url": "https://segmentfault.com" + url, "cover_image_url": coverImg})
+		allData = append(allData, map[string]interface{}{"title": string(text), "url": "https://segmentfault.com" + url, "cover_img_url": coverImg})
 	})
 	fmt.Println(allData)
 	return allData
@@ -99,12 +99,13 @@ func getV2EX() []map[string]interface{} {
 			imgUrl = ""
 		}
 
-		url, boolUrl := selection.Find(".item_title .topic-link").Attr("href")
-		text := selection.Find("a").Text()
+		node := selection.Find(".item_title .topic-link")
+		url, boolUrl := node.Attr("href")
+		text := node.Text()
 		if !boolUrl {
 			url = ""
 		}
-		allData = append(allData, map[string]interface{}{"title": text, "url": "https://www.v2ex.com" + url, "cover_image_url": imgUrl})
+		allData = append(allData, map[string]interface{}{"title": text, "url": "https://www.v2ex.com" + url, "cover_img_url": imgUrl})
 	})
 	fmt.Println(allData)
 	return allData

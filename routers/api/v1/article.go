@@ -112,13 +112,13 @@ func GetArticles(c *gin.Context) {
 }
 
 type AddArticleForm struct {
-	TagID         int    `form:"tag_id" valid:"Required;Min(1)"`
-	Title         string `form:"title" valid:"Required;MaxSize(100)"`
-	Desc          string `form:"desc" valid:"Required;MaxSize(255)"`
-	Content       string `form:"content" valid:"Required;MaxSize(65535)"`
-	CreatedBy     string `form:"created_by" valid:"Required;MaxSize(100)"`
-	CoverImageUrl string `form:"cover_image_url" valid:"Required;MaxSize(255)"`
-	State         int    `form:"state" valid:"Range(0,1)"`
+	TagID       int    `form:"tag_id" valid:"Required;Min(1)"`
+	Title       string `form:"title" valid:"Required;MaxSize(100)"`
+	Desc        string `form:"desc" valid:"Required;MaxSize(255)"`
+	Content     string `form:"content" valid:"Required;MaxSize(65535)"`
+	CreatedBy   string `form:"created_by" valid:"Required;MaxSize(100)"`
+	CoverImgUrl string `form:"cover_img_url" valid:"Required;MaxSize(255)"`
+	State       int    `form:"state" valid:"Range(0,1)"`
 }
 
 // @Summary Add article
@@ -157,12 +157,12 @@ func AddArticle(c *gin.Context) {
 	}
 
 	articleService := article_service.Article{
-		TagID:         form.TagID,
-		Title:         form.Title,
-		Desc:          form.Desc,
-		Content:       form.Content,
-		CoverImageUrl: form.CoverImageUrl,
-		State:         form.State,
+		TagID:       form.TagID,
+		Title:       form.Title,
+		Desc:        form.Desc,
+		Content:     form.Content,
+		CoverImgUrl: form.CoverImgUrl,
+		State:       form.State,
 	}
 	if err := articleService.Add(); err != nil {
 		appG.Response(http.StatusInternalServerError, e.ERROR_ADD_ARTICLE_FAIL, nil)
@@ -173,14 +173,14 @@ func AddArticle(c *gin.Context) {
 }
 
 type EditArticleForm struct {
-	ID            int    `form:"id" valid:"Required;Min(1)"`
-	TagID         int    `form:"tag_id" valid:"Required;Min(1)"`
-	Title         string `form:"title" valid:"Required;MaxSize(100)"`
-	Desc          string `form:"desc" valid:"Required;MaxSize(255)"`
-	Content       string `form:"content" valid:"Required;MaxSize(65535)"`
-	ModifiedBy    string `form:"modified_by" valid:"Required;MaxSize(100)"`
-	CoverImageUrl string `form:"cover_image_url" valid:"Required;MaxSize(255)"`
-	State         int    `form:"state" valid:"Range(0,1)"`
+	ID          int    `form:"id" valid:"Required;Min(1)"`
+	TagID       int    `form:"tag_id" valid:"Required;Min(1)"`
+	Title       string `form:"title" valid:"Required;MaxSize(100)"`
+	Desc        string `form:"desc" valid:"Required;MaxSize(255)"`
+	Content     string `form:"content" valid:"Required;MaxSize(65535)"`
+	ModifiedBy  string `form:"modified_by" valid:"Required;MaxSize(100)"`
+	CoverImgUrl string `form:"cover_img_url" valid:"Required;MaxSize(255)"`
+	State       int    `form:"state" valid:"Range(0,1)"`
 }
 
 // @Summary Update article
@@ -208,14 +208,14 @@ func EditArticle(c *gin.Context) {
 	}
 
 	articleService := article_service.Article{
-		ID:            form.ID,
-		TagID:         form.TagID,
-		Title:         form.Title,
-		Desc:          form.Desc,
-		Content:       form.Content,
-		CoverImageUrl: form.CoverImageUrl,
-		ModifiedBy:    form.ModifiedBy,
-		State:         form.State,
+		ID:          form.ID,
+		TagID:       form.TagID,
+		Title:       form.Title,
+		Desc:        form.Desc,
+		Content:     form.Content,
+		CoverImgUrl: form.CoverImgUrl,
+		ModifiedBy:  form.ModifiedBy,
+		State:       form.State,
 	}
 	exists, err := articleService.ExistByID()
 	if err != nil {

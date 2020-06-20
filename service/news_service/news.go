@@ -50,22 +50,27 @@ func ExecGetData(spider Spider, ch chan FetchData) FetchData {
 		for i, item := range fetchData.Data {
 			url := item["url"]
 			title := item["title"]
-			cover_image_url := item["cover_image_url"]
+			cover_img_url := item["cover_img_url"]
+			avatar_img_url := item["avatar_img_url"]
 			if url == nil {
 				url = ""
 			}
 			if title == nil {
 				title = ""
 			}
-			if cover_image_url == nil {
-				cover_image_url = ""
+			if cover_img_url == nil {
+				cover_img_url = ""
+			}
+			if avatar_img_url == nil {
+				avatar_img_url = ""
 			}
 			err := AddNews(map[string]interface{}{
-				"from":            fetchData.Type.DataType,
-				"tag":             fetchData.Type.DataType,
-				"url":             url,
-				"title":           title,
-				"cover_image_url": cover_image_url,
+				"from":           fetchData.Type.DataType,
+				"tag":            fetchData.Type.DataType,
+				"url":            url,
+				"title":          title,
+				"cover_img_url":  cover_img_url,
+				"avatar_img_url": avatar_img_url,
 			})
 			if err == nil {
 				fmt.Println(fetchData.Type.DataType, i, "插入成功")

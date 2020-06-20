@@ -7,11 +7,11 @@ import (
 
 type NewsTag struct {
 	gorm.Model
-	From          string `json:"from"` // 反引号声明元信息
-	Name          string `json:"name"`
-	Title         string `json:"title"`
-	Desc          string `json:"desc"`
-	CoverImageUrl string `json:"cover_image_url"`
+	From        string `json:"from"` // 反引号声明元信息
+	Name        string `json:"name"`
+	Title       string `json:"title"`
+	Desc        string `json:"desc"`
+	CoverImgUrl string `json:"cover_img_url"`
 }
 
 // 查找是否存在
@@ -120,25 +120,60 @@ func CleanAllNewsTag() (bool, error) {
 
 type News struct {
 	gorm.Model
-	From          string `json:"from"`            // 来源
-	Tag           string `json:"tag"`             // 标签
-	Title         string `json:"title"`           // 标题
-	Url           string `json:"url"`             // url
-	Desc          string `json:"desc"`            // 描述
-	CoverImageUrl string `json:"cover_image_url"` // 图片
+	From         string `json:"from"`           // 来源
+	Tag          string `json:"tag"`            // 标签
+	Title        string `json:"title"`          // 标题
+	Url          string `json:"url"`            // url
+	Desc         string `json:"desc"`           // 描述
+	CoverImgUrl  string `json:"cover_img_url"`  // 图片,
+	AvatarImgUrl string `json:"avatar_img_url"` // 头像
+	CommentCount int    `json:"comment_count"`  // 评论数
+	ViewCount    int    `json:"view_count"`     // 查看次数
+	LikeCount    int    `json:"like_count"`     // 点赞数
+	HotCount     int    `json:"hot_count"`      // 热度
+	PostTime     string `json:"post_time"`      // 发帖时间
+	UpdateTime   string `json:"update_time"`    // 最后更新时间或回复时间
 }
 
 func AddNews(data map[string]interface{}) error {
-	//from := data["from"]
-	//if from == nil {
-	//	from = ""
-	//}
+	if data["cover_img_url"] == nil {
+		data["cover_img_url"] = ""
+	}
+	if data["avatar_img_url"] == nil {
+		data["avatar_img_url"] = ""
+	}
+	if data["comment_count"] == nil {
+		data["comment_count"] = 0
+	}
+	if data["view_count"] == nil {
+		data["view_count"] = 0
+	}
+	if data["like_count"] == nil {
+		data["like_count"] = 0
+	}
+	if data["hot_count"] == nil {
+		data["hot_count"] = 0
+	}
+	if data["post_time"] == nil {
+		data["post_time"] = ""
+	}
+	if data["update_time"] == nil {
+		data["update_time"] = ""
+	}
+	fmt.Println("插入的数据", data)
 	news := News{
-		From:          data["from"].(string),
-		Tag:           data["tag"].(string),
-		Title:         data["title"].(string),
-		Url:           data["url"].(string),
-		CoverImageUrl: data["cover_image_url"].(string),
+		From:         data["from"].(string),
+		Tag:          data["tag"].(string),
+		Title:        data["title"].(string),
+		Url:          data["url"].(string),
+		CoverImgUrl:  data["cover_img_url"].(string),
+		AvatarImgUrl: data["avatar_img_url"].(string),
+		CommentCount: data["comment_count"].(int),
+		ViewCount:    data["view_count"].(int),
+		LikeCount:    data["like_count"].(int),
+		HotCount:     data["hot_count"].(int),
+		PostTime:     data["post_time"].(string),
+		UpdateTime:   data["update_time"].(string),
 	}
 	fmt.Println("向数据库添加：", news)
 	//err := db.Model(&News{}).Create()

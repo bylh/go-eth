@@ -10,15 +10,15 @@ import (
 )
 
 type Article struct {
-	ID            int
-	TagID         int
-	Title         string
-	Desc          string
-	Content       string
-	CoverImageUrl string
-	State         int
-	CreatedBy     string
-	ModifiedBy    string
+	ID          int
+	TagID       int
+	Title       string
+	Desc        string
+	Content     string
+	CoverImgUrl string
+	State       int
+	CreatedBy   string
+	ModifiedBy  string
 
 	PageNum  int
 	PageSize int
@@ -26,13 +26,13 @@ type Article struct {
 
 func (a *Article) Add() error {
 	article := map[string]interface{}{
-		"tag_id":          a.TagID,
-		"title":           a.Title,
-		"desc":            a.Desc,
-		"content":         a.Content,
-		"created_by":      a.CreatedBy,
-		"cover_image_url": a.CoverImageUrl,
-		"state":           a.State,
+		"tag_id":        a.TagID,
+		"title":         a.Title,
+		"desc":          a.Desc,
+		"content":       a.Content,
+		"created_by":    a.CreatedBy,
+		"cover_img_url": a.CoverImgUrl,
+		"state":         a.State,
 	}
 
 	if err := models.AddArticle(article); err != nil {
@@ -44,13 +44,13 @@ func (a *Article) Add() error {
 
 func (a *Article) Edit() error {
 	return models.EditArticle(a.ID, map[string]interface{}{
-		"tag_id":          a.TagID,
-		"title":           a.Title,
-		"desc":            a.Desc,
-		"content":         a.Content,
-		"cover_image_url": a.CoverImageUrl,
-		"state":           a.State,
-		"modified_by":     a.ModifiedBy,
+		"tag_id":        a.TagID,
+		"title":         a.Title,
+		"desc":          a.Desc,
+		"content":       a.Content,
+		"cover_img_url": a.CoverImgUrl,
+		"state":         a.State,
+		"modified_by":   a.ModifiedBy,
 	})
 }
 
