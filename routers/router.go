@@ -38,7 +38,12 @@ func InitRouter() *gin.Engine {
 	//config.AllowAllOrigins = true
 	//config.AllowCredentials = true
 	//r.Use(cors.New(config))
-	r.Use(cors.Default())
+	r.Use(cors.New(cors.Options{
+		AllowedOrigins:   []string{"https://bylh.top", "https://perceive.top", "http://localhost*"},
+		AllowCredentials: true,
+		// Enable Debugging for testing, consider disabling in production
+		Debug: true,
+	}))
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 
