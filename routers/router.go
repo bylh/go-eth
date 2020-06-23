@@ -4,7 +4,6 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	cors "github.com/rs/cors/wrapper/gin"
 
 	"github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
@@ -22,7 +21,8 @@ import (
 // InitRouter initialize routing information
 func InitRouter() *gin.Engine {
 	r := gin.Default()
-	//r.Use(cors.New(cors.Config{
+	// 已经在nginx配置过服务了，此处不再配置，否则重复设置为报错
+	//r.Use(cors.New(cors.Config{：：
 	//	AllowOrigins: []string{"https://*.perceive.top", "https://*.bylh.top"},
 	//	//AllowMethods:     []string{"PUT", "PATCH"},
 	//	//AllowHeaders:  []string{"Origin"},
@@ -38,12 +38,12 @@ func InitRouter() *gin.Engine {
 	//config.AllowAllOrigins = true
 	//config.AllowCredentials = true
 	//r.Use(cors.New(config))
-	r.Use(cors.New(cors.Options{
-		AllowedOrigins:   []string{"https://bylh.top", "https://perceive.top", "http://localhost*"},
-		AllowCredentials: true,
-		// Enable Debugging for testing, consider disabling in production
-		Debug: true,
-	}))
+	//r.Use(cors.New(cors.Options{
+	//	AllowedOrigins:   []string{"https://bylh.top", "https://perceive.top", "http://localhost*"},
+	//	AllowCredentials: true,
+	//	// Enable Debugging for testing, consider disabling in production
+	//	Debug: true,
+	//}))
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 
