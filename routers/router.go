@@ -24,11 +24,11 @@ import (
 func InitRouter() *gin.Engine {
 	r := gin.Default()
 	r.Use(cors.New(cors.Config{
-		AllowOrigins: []string{"https://*.perceive.top"},
+		AllowOrigins: []string{"https://*.perceive.top", "https://*.bylh.top"},
 		//AllowMethods:     []string{"PUT", "PATCH"},
-		AllowHeaders:     []string{"Origin"},
-		ExposeHeaders:    []string{"Content-Length"},
-		AllowCredentials: true,
+		AllowHeaders:  []string{"Origin"},
+		ExposeHeaders: []string{"Content-Length"},
+		//AllowCredentials: true,
 		//AllowAllOrigins: true,
 		//AllowOriginFunc: func(origin string) bool {
 		//	return origin == "*"
