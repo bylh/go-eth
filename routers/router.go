@@ -3,6 +3,7 @@ package routers
 import (
 	"github.com/gin-contrib/cors"
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 
@@ -22,23 +23,23 @@ import (
 // InitRouter initialize routing information
 func InitRouter() *gin.Engine {
 	r := gin.Default()
-	//r.Use(cors.New(cors.Config{
-	//	AllowOrigins:     []string{"https://*.perceive.top"},
-	//	//AllowMethods:     []string{"PUT", "PATCH"},
-	//	AllowHeaders:     []string{"Origin"},
-	//	ExposeHeaders:    []string{"Content-Length"},
-	//	AllowCredentials: true,
-	//	//AllowAllOrigins: true,
-	//	//AllowOriginFunc: func(origin string) bool {
-	//	//	return origin == "*"
-	//	//},
-	//	MaxAge: 12 * time.Hour,
-	//}))
+	r.Use(cors.New(cors.Config{
+		AllowOrigins: []string{"https://*.perceive.top"},
+		//AllowMethods:     []string{"PUT", "PATCH"},
+		AllowHeaders:     []string{"Origin"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,
+		//AllowAllOrigins: true,
+		//AllowOriginFunc: func(origin string) bool {
+		//	return origin == "*"
+		//},
+		MaxAge: 12 * time.Hour,
+	}))
 	//config := cors.DefaultConfig()
 	//config.AllowAllOrigins = true
 	//config.AllowCredentials = true
 	//r.Use(cors.New(config))
-	r.Use(cors.Default())
+	//r.Use(cors.Default())
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 
