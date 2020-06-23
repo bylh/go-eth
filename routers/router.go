@@ -21,7 +21,7 @@ import (
 
 // InitRouter initialize routing information
 func InitRouter() *gin.Engine {
-	r := gin.New()
+	r := gin.Default()
 	//r.Use(cors.New(cors.Config{
 	//	AllowOrigins:     []string{"https://*.perceive.top"},
 	//	//AllowMethods:     []string{"PUT", "PATCH"},
@@ -34,11 +34,11 @@ func InitRouter() *gin.Engine {
 	//	//},
 	//	MaxAge: 12 * time.Hour,
 	//}))
-	config := cors.DefaultConfig()
+	//config := cors.DefaultConfig()
 	//config.AllowAllOrigins = true
 	//config.AllowCredentials = true
-	r.Use(cors.New(config))
-	//r.Use(cors.Default())
+	//r.Use(cors.New(config))
+	r.Use(cors.Default())
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 
