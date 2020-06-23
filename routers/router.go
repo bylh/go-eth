@@ -1,11 +1,10 @@
 package routers
 
 import (
-	"github.com/gin-contrib/cors"
 	"net/http"
-	"time"
 
 	"github.com/gin-gonic/gin"
+	cors "github.com/rs/cors/wrapper/gin"
 
 	"github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
@@ -23,23 +22,23 @@ import (
 // InitRouter initialize routing information
 func InitRouter() *gin.Engine {
 	r := gin.Default()
-	r.Use(cors.New(cors.Config{
-		AllowOrigins: []string{"https://*.perceive.top", "https://*.bylh.top"},
-		//AllowMethods:     []string{"PUT", "PATCH"},
-		//AllowHeaders:  []string{"Origin"},
-		//ExposeHeaders: []string{"Content-Length"},
-		AllowCredentials: true,
-		//AllowAllOrigins: true,
-		//AllowOriginFunc: func(origin string) bool {
-		//	return origin == "*"
-		//},
-		MaxAge: 12 * time.Hour,
-	}))
+	//r.Use(cors.New(cors.Config{
+	//	AllowOrigins: []string{"https://*.perceive.top", "https://*.bylh.top"},
+	//	//AllowMethods:     []string{"PUT", "PATCH"},
+	//	//AllowHeaders:  []string{"Origin"},
+	//	//ExposeHeaders: []string{"Content-Length"},
+	//	AllowCredentials: true,
+	//	//AllowAllOrigins: true,
+	//	//AllowOriginFunc: func(origin string) bool {
+	//	//	return origin == "*"
+	//	//},
+	//	MaxAge: 12 * time.Hour,
+	//}))
 	//config := cors.DefaultConfig()
 	//config.AllowAllOrigins = true
 	//config.AllowCredentials = true
 	//r.Use(cors.New(config))
-	//r.Use(cors.Default())
+	r.Use(cors.Default())
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 

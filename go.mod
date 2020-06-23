@@ -23,6 +23,7 @@ require (
 	github.com/jinzhu/gorm v1.9.10
 	github.com/nntaoli-project/GoEx v1.0.3
 	github.com/nubo/jwt v0.0.0-20150918093313-da5b79c3bbaf // indirect
+	github.com/rs/cors v1.7.0
 	github.com/swaggo/gin-swagger v1.2.0
 	github.com/swaggo/swag v1.6.2
 	github.com/tealeg/xlsx v1.0.3
