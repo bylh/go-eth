@@ -35,7 +35,7 @@ func InitRouter() *gin.Engine {
 	//	MaxAge: 12 * time.Hour,
 	//}))
 	config := cors.DefaultConfig()
-	config.AllowAllOrigins = true
+	//config.AllowAllOrigins = true
 	//config.AllowCredentials = true
 	r.Use(cors.New(config))
 	//r.Use(cors.Default())
