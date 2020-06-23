@@ -26,7 +26,23 @@ func main() {
 	var p *int
 	x := 5
 	p = &x
+	fmt.Println("测试*开始")
 	fmt.Println(*p)
+	fmt.Println(&p)
+	fmt.Println(*(&p))
+	fmt.Println(*(&(*p)))
+
+	fmt.Println("测试*结束")
+
+	fmt.Println("测试...开始")
+	result := make([]int, 0)
+	result = append(result, 0)
+	fmt.Println(result)
+	left := []int{1, 2, 3}
+	result = append(result, left...)
+	fmt.Println(result)
+	fmt.Println("测试...结束")
+
 	x = 10
 	fmt.Println(*p)
 

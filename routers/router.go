@@ -36,7 +36,7 @@ func InitRouter() *gin.Engine {
 	//}))
 	config := cors.DefaultConfig()
 	config.AllowAllOrigins = true
-	config.AllowCredentials = true
+	//config.AllowCredentials = true
 	r.Use(cors.New(config))
 	//r.Use(cors.Default())
 	r.Use(gin.Logger())
