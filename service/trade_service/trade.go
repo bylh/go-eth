@@ -4,19 +4,23 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/nntaoli-project/goex"
+	"github.com/nntaoli-project/goex/binance"
 	"github.com/nntaoli-project/goex/builder"
 	"go-eth/pkg/setting"
 	"os"
 	"time"
 )
 
-//type ExtendGoex interface {
-//	goex.API
-//	GetAllUnfinishOrders() ([]goex.Order, error)
-//}
+type ExtendGoex interface {
+	goex.API
+	GetAllUnfinishOrders() ([]goex.Order, error)
+}
 
 var apiBuilder = builder.NewAPIBuilder().HttpTimeout(5 * time.Second)
 
+func GetAllUnfinishOrders(i ExtendGoex) ([]goex.Order, error) {
+	return i.GetAllUnfinishOrders()
+}
 func Test(conditions map[string]string) (map[string]interface{}, error) {
 	//environ := os.Environ()
 	//for i := range environ {
@@ -88,9 +92,23 @@ func GetOpenOrders(conditions map[string]string) ([]goex.Order, error) {
 	api := getExApi(conditions["exName"])
 	base := conditions["base"]
 	target := conditions["target"]
-	//if len(base) == 0 || len(target) == 0 {
-	//	return goex.GetAllUnfinishOrders()
-	//}
+	if len(base) == 0 || len(target) == 0 {
+		switch conditions["exName"] {
+		case "BINANCE":
+			//var b = binance.Binance{setting.TradeSetting.BinanceKey,
+			//	setting.TradeSetting.BinanceSecret,
+			//
+			//}
+			// 可以引入不同交易所的实例，使用同样的http配置
+			var b = binance.New(apiBuilder.GetHttpClient(), setting.TradeSetting.BinanceKey, setting.TradeSetting.BinanceSecret)
+			//accessKey: setting.TradeSetting.BinanceKey,
+			//secretKey: setting.TradeSetting.BinanceSecret,
+			//baseUrl:   goex.BINANCE,
+			return b.GetAllUnfinishOrders()
+		}
+		//test := ExtendGoex(api)
+		//return GetAllUnfinishOrders(test)
+	}
 	return api.GetUnfinishOrders(goex.CurrencyPair{CurrencyA: goex.Currency{Symbol: target, Desc: ""}, CurrencyB: goex.Currency{Symbol: base, Desc: ""}})
 }
 func getTickers(target string, base string) {
