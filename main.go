@@ -16,8 +16,7 @@ import (
 
 	// 如果使用诸如 http.StatusOK 之类的常量，则需要引入 net/http 包
 	"net/http"
-	// 基本框架
-	"github.com/gin-gonic/gin"
+
 	// 设置https
 
 	"go-eth/models"
@@ -68,7 +67,11 @@ func init() {
 
 func main() {
 	// 根据配置文件中server字段设置 端口 读写超时等配置
-	gin.SetMode(setting.ServerSetting.RunMode)
+	//gin.SetMode(setting.ServerSetting.RunMode)
+	//mode := gin.Mode()
+	//if mode == gin.DebugMode || mode == gin.TestMode {
+	//	可以在这里读取不同的配置（启动或构建时指定ginMode:  GIN_MODE=release go run main.go）
+	//}
 
 	// 初始化项目路由信息
 	routersInit := routers.InitRouter()

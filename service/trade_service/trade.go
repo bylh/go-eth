@@ -1,21 +1,33 @@
 package trade_service
 
 import (
-	"github.com/nntaoli-project/GoEx"
-	"github.com/nntaoli-project/GoEx/builder"
-	"log"
-
-	// "log"
+	"fmt"
+	"github.com/gin-gonic/gin"
+	"github.com/nntaoli-project/goex"
+	"github.com/nntaoli-project/goex/builder"
+	"go-eth/pkg/setting"
+	"os"
 	"time"
 )
 
-func Test(key string, secret string) (*goex.Ticker, error) {
-	apiBuilder := builder.NewAPIBuilder().HttpTimeout(5 * time.Second)
-	//apiBuilder := builder.NewAPIBuilder().HttpTimeout(5 * time.Second).HttpProxy("socks5://127.0.0.1:1080")
+//type ExtendGoex interface {
+//	goex.API
+//	GetAllUnfinishOrders() ([]goex.Order, error)
+//}
 
+var apiBuilder = builder.NewAPIBuilder().HttpTimeout(5 * time.Second)
+
+func Test(conditions map[string]string) (map[string]interface{}, error) {
+	//environ := os.Environ()
+	//for i := range environ {
+	//	fmt.Println("hah:", i, environ[i])
+	//}
+	fmt.Println("**************************")
+	env := os.Getenv("ENV")
+	fmt.Printf("GOPATH is %s\n", env)
 	//build spot api
 	//api := apiBuilder.APIKey("").APISecretkey("").ClientID("123").Build(goex.BITSTAMP)
-	api := apiBuilder.APIKey(key).APISecretkey(secret).Build(goex.HUOBI_PRO)
+	//api := apiBuilder.APIKey(key).APISecretkey(secret).Build(goex.BINANCE)
 	// log.Println(api.GetExchangeName())
 	// log.Println(api.GetTicker(goex.BTC_USD))
 	// log.Println(api.GetDepth(2, goex.BTC_USD))
@@ -29,7 +41,58 @@ func Test(key string, secret string) (*goex.Ticker, error) {
 	// log.Println(futureApi.GetFutureDepth(goex.BTC_USD, goex.QUARTER_CONTRACT, 5))
 	//log.Println(futureApi.GetFutureUserinfo()) // account
 	//log.Println(futureApi.GetFuturePosition(goex.BTC_USD , goex.QUARTER_CONTRACT))//position info
-	log.Println(api.GetTicker(goex.BTC_USD))
 
-	return api.GetTicker(goex.BTC_USD)
+	/* ------------------------- ticker ------------------------------- */
+	//ticker, err := api.GetTicker(goex.BTC_USD)
+	//fmt.Println("BTC_USD", ticker)
+	// 可扩展的交易对 NAS
+	//ticker, err := api.GetTicker(goex.CurrencyPair{CurrencyA: goex.Currency{Symbol: "NAS", Desc: "https://nebulas.io/cn/"}, CurrencyB: goex.BTC})
+	//fmt.Println("BTC_NAS", ticker, err)
+
+	//orders, err := api.GetUnfinishOrders(goex.CurrencyPair{CurrencyA: goex.Currency{Symbol: "NAS", Desc: "https://nebulas.io/cn/"}, CurrencyB: goex.BTC})
+	//fmt.Println("GetUnfinishOrders", orders, len(orders))
+
+	result, err := GetOpenOrders(conditions)
+	if err != nil {
+		return nil, err
+	}
+	resultMap := make(map[string]interface{})
+	resultMap[conditions["exName"]] = result
+	return resultMap, nil
+
+}
+
+/* ------------------------- 根据交易所名称获取交易所api ------------------------------- */
+func getExApi(exName string) goex.API {
+	var key, secret string
+	var exBase string
+
+	switch exName {
+	case "BINANCE":
+		key = setting.TradeSetting.BinanceKey
+		secret = setting.TradeSetting.BinanceSecret
+		exBase = goex.BINANCE
+	}
+	println("gin mode", gin.Mode())
+	mode := gin.Mode()
+	if mode == gin.DebugMode || mode == gin.TestMode {
+		apiBuilder = apiBuilder.HttpProxy("socks5://127.0.0.1:7891")
+	}
+	//HttpProxy("socks5://127.0.0.1:7891")
+	return apiBuilder.APIKey(key).APISecretkey(secret).Build(exBase)
+}
+
+/* ------------------------- 根据交易所名称获取交易所进行中的订单（挂单） ------------------------------- */
+func GetOpenOrders(conditions map[string]string) ([]goex.Order, error) {
+	//var api interface{}
+	api := getExApi(conditions["exName"])
+	base := conditions["base"]
+	target := conditions["target"]
+	//if len(base) == 0 || len(target) == 0 {
+	//	return goex.GetAllUnfinishOrders()
+	//}
+	return api.GetUnfinishOrders(goex.CurrencyPair{CurrencyA: goex.Currency{Symbol: target, Desc: ""}, CurrencyB: goex.Currency{Symbol: base, Desc: ""}})
+}
+func getTickers(target string, base string) {
+
 }

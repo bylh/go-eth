@@ -21,7 +21,7 @@
 
 
 #  ------------------------- START 先手动打包再部署，这样构建的包很小，不用过多依赖环境 -------------------------------
-# 第一步 手动打包 CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o go-eth .
+# 第一步 手动打包 CGO_ENABLED=0 GOOS=linux GIN_MODE=release go build -a -installsuffix cgo -o go-eth .
 
 #FROM scratch
 #FROM golang:alpine as builder

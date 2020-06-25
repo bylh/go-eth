@@ -4,13 +4,12 @@ import (
 	"github.com/gin-gonic/gin"
 	"go-eth/pkg/app"
 	"go-eth/pkg/e"
-	"go-eth/pkg/setting"
 	"go-eth/service/trade_service"
 	"net/http"
 )
 
-func Test(c *gin.Context) {
+func GetOpenOrders(c *gin.Context) {
 	appG := app.Gin{C: c}
-	data, _ := trade_service.Test(setting.TradeSetting.HuobiKey, setting.TradeSetting.HuobiSecret)
+	data, _ := trade_service.GetOpenOrders(map[string]string{"exName": c.Query("exName"), "base": c.Query("base"), "target": c.Query("target")})
 	appG.Response(http.StatusOK, e.SUCCESS, data)
 }

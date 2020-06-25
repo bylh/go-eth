@@ -55,7 +55,7 @@ func InitRouter() *gin.Engine {
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	r.POST("/upload", api.UploadImage)
 
-	r.GET("/trade/test", trade.Test)
+	r.GET("/trade/getOpenOrders", trade.GetOpenOrders)
 	r.GET("/newsTags", news.GetNewsTags)
 	r.GET("/news", news.GetNews)
 	// https://github.com/gin-gonic/gin/issues/686

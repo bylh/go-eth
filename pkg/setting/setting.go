@@ -62,8 +62,10 @@ type Redis struct {
 var RedisSetting = &Redis{}
 
 type Trade struct {
-	HuobiKey    string
-	HuobiSecret string
+	HuobiKey      string
+	HuobiSecret   string
+	BinanceKey    string
+	BinanceSecret string
 }
 
 var TradeSetting = &Trade{}
