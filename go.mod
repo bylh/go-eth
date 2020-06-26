@@ -13,6 +13,7 @@ require (
 	github.com/deckarep/golang-set v1.7.1 // indirect
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gin-contrib/cors v1.3.1
+	github.com/gin-contrib/sessions v0.0.3
 	github.com/gin-gonic/gin v1.5.0
 	github.com/go-ini/ini v1.44.0
 	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0

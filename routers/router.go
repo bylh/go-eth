@@ -3,7 +3,10 @@ package routers
 import (
 	"net/http"
 
+	//"github.com/gin-contrib/sessions"
+	//"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
+	cors "github.com/rs/cors/wrapper/gin"
 
 	"github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
@@ -38,12 +41,16 @@ func InitRouter() *gin.Engine {
 	//config.AllowAllOrigins = true
 	//config.AllowCredentials = true
 	//r.Use(cors.New(config))
-	//r.Use(cors.New(cors.Options{
-	//	AllowedOrigins:   []string{"https://bylh.top", "https://perceive.top", "http://localhost*"},
-	//	AllowCredentials: true,
-	//	// Enable Debugging for testing, consider disabling in production
-	//	Debug: true,
-	//}))
+	mode := gin.Mode()
+	if mode == gin.DebugMode || mode == gin.TestMode {
+		// 生产环境的cors是在nginx配置的，测试环境要打开
+		r.Use(cors.New(cors.Options{
+			AllowedOrigins:   []string{"http://local.bylh.top:3000", "http://local.perceive.top:3000", "https://perceive.top", "http://localhost*"},
+			AllowCredentials: true,
+			// Enable Debugging for testing, consider disabling in production
+			Debug: true,
+		}))
+	}
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 
@@ -69,6 +76,49 @@ func InitRouter() *gin.Engine {
 	// 注意：此处为完全代理，GET方法的相对路径会直接追加到代理地址，所以内部要处理，进行替换，或者忽略
 	//r.GET("/get-hub-type", proxy.ReverseProxy("https://tophub.fun:8080", "/GetType"))
 	//r.GET("/netdata", proxy.ReverseProxy("http://bylh.top:19999", ""))
+
+	//store := cookie.NewStore([]byte("secret"))
+	// TODO 同一域名及其子域名可以，不同域名后端不可以为前端设置cookie
+	//store.Options(sessions.Options{
+	//	Domain: ".perceive.top",
+	//	Path: "/",
+	//	Secure: true,
+	//	SameSite: 2,
+	//
+	//})
+	//sessionNames := []string{"a", "b"}
+	//apiTrade := r.Group("/session")
+	//apiTrade.Use(sessions.SessionsMany(sessionNames, store))
+	//{
+	//	apiTrade.GET("/login", func(c *gin.Context) {
+	//		sessionA := sessions.DefaultMany(c, "a")
+	//		sessionB := sessions.DefaultMany(c, "b")
+	//		fmt.Println("sessionA", sessionA.Get("a"))
+	//		fmt.Println("sessionB", sessionA.Get("b"))
+	//
+	//		sessionA.Set("hello", "world!")
+	//		err := sessionA.Save()
+	//		fmt.Println("sessionAERR", err)
+	//
+	//		if sessionA.Get("hello") != "world!" {
+	//			sessionA.Set("hello", "world!")
+	//			sessionA.Save()
+	//		}
+	//		sessionB.Set("hello", "world?")
+	//		err = sessionB.Save()
+	//		fmt.Println("sessionBERR", err)
+	//		if sessionB.Get("hello") != "world?" {
+	//			sessionB.Set("hello", "world?")
+	//			sessionB.Save()
+	//		}
+	//
+	//		c.JSON(200, gin.H{
+	//			"a": sessionA.Get("hello"),
+	//			"b": sessionB.Get("hello"),
+	//		})
+	//	})
+	//}
+
 	apiv1 := r.Group("/api/v1")
 	apiv1.Use(jwt.JWT())
 	{
