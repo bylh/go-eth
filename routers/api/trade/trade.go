@@ -18,3 +18,8 @@ func GetAllTickers(c *gin.Context) {
 	data, _ := trade_service.GetAllTickers()
 	appG.Response(http.StatusOK, e.SUCCESS, data)
 }
+func GetAccount(c *gin.Context) {
+	appG := app.Gin{C: c}
+	data, _ := trade_service.GetAccount(c.Query("exName"))
+	appG.Response(http.StatusOK, e.SUCCESS, data)
+}

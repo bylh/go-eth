@@ -47,6 +47,7 @@ func InitRouter() *gin.Engine {
 		r.Use(cors.New(cors.Options{
 			AllowedOrigins:   []string{"http://local.bylh.top:3000", "http://local.perceive.top:3000", "https://perceive.top", "http://localhost*"},
 			AllowCredentials: true,
+			// 设置允许在header中添加tokenring{"Authorization"},
 			// Enable Debugging for testing, consider disabling in production
 			Debug: true,
 		}))
@@ -58,7 +59,6 @@ func InitRouter() *gin.Engine {
 	r.StaticFS("/upload/images", http.Dir(upload.GetImageFullPath()))
 	r.StaticFS("/qrcode", http.Dir(qrcode.GetQrCodeFullPath()))
 
-	r.GET("/auth", api.GetAuth)
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	r.POST("/upload", api.UploadImage)
 
@@ -118,10 +118,12 @@ func InitRouter() *gin.Engine {
 	//		})
 	//	})
 	//}
-
+	r.POST("/login", api.Login)
 	apiv1 := r.Group("/api/v1")
 	apiv1.Use(jwt.JWT())
 	{
+		// 获取交易账户信息
+		apiv1.GET("/trade/account", trade.GetAccount)
 		//获取标签列表
 		apiv1.GET("/tags", v1.GetTags)
 		//新建标签
