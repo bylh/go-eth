@@ -66,6 +66,8 @@ type Trade struct {
 	HuobiSecret   string
 	BinanceKey    string
 	BinanceSecret string
+	OkexKey       string
+	OkexSecret    string
 }
 
 var TradeSetting = &Trade{}

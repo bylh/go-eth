@@ -56,6 +56,8 @@ func InitRouter() *gin.Engine {
 	r.POST("/upload", api.UploadImage)
 
 	r.GET("/trade/getOpenOrders", trade.GetOpenOrders)
+	r.GET("/trade/getAllTickers", trade.GetAllTickers)
+
 	r.GET("/newsTags", news.GetNewsTags)
 	r.GET("/news", news.GetNews)
 	// https://github.com/gin-gonic/gin/issues/686

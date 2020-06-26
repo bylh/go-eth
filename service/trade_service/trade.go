@@ -6,6 +6,7 @@ import (
 	"github.com/nntaoli-project/goex"
 	"github.com/nntaoli-project/goex/binance"
 	"github.com/nntaoli-project/goex/builder"
+	"github.com/nntaoli-project/goex/okex"
 	"go-eth/pkg/setting"
 	"os"
 	"time"
@@ -76,13 +77,18 @@ func getExApi(exName string) goex.API {
 		key = setting.TradeSetting.BinanceKey
 		secret = setting.TradeSetting.BinanceSecret
 		exBase = goex.BINANCE
+		break
+	case "OKEX":
+		key = setting.TradeSetting.OkexKey
+		secret = setting.TradeSetting.OkexSecret
+		exBase = goex.OKEX
 	}
+
 	println("gin mode", gin.Mode())
 	mode := gin.Mode()
 	if mode == gin.DebugMode || mode == gin.TestMode {
 		apiBuilder = apiBuilder.HttpProxy("socks5://127.0.0.1:7891")
 	}
-	//HttpProxy("socks5://127.0.0.1:7891")
 	return apiBuilder.APIKey(key).APISecretkey(secret).Build(exBase)
 }
 
@@ -111,6 +117,28 @@ func GetOpenOrders(conditions map[string]string) ([]goex.Order, error) {
 	}
 	return api.GetUnfinishOrders(goex.CurrencyPair{CurrencyA: goex.Currency{Symbol: target, Desc: ""}, CurrencyB: goex.Currency{Symbol: base, Desc: ""}})
 }
-func getTickers(target string, base string) {
-
+func GetAllTickers() (*[]goex.FutureTicker, error) {
+	api := getExApi("OKEX")
+	if api == nil {
+		return nil, nil
+	}
+	okexF := okex.NewOKExSwap(&goex.APIConfig{
+		HttpClient:   apiBuilder.GetHttpClient(),
+		ApiKey:       setting.TradeSetting.OkexKey,
+		ApiSecretKey: setting.TradeSetting.OkexSecret,
+		Endpoint:     "https://www.okex.com",
+	})
+	return okexF.GetFutureAllTicker()
+	//accessKey: setting.TradeSetting.BinanceKey,
+	//secretKey: setting.TradeSetting.BinanceSecret,
+	//baseUrl:   goex.BINANCE,
+}
+func GetTicker(target string, base string) (*goex.Ticker, error) {
+	// 暂时使用币安的
+	api := getExApi("BINANCE")
+	return api.GetTicker(goex.CurrencyPair{CurrencyA: goex.Currency{Symbol: target}, CurrencyB: goex.Currency{Symbol: base}})
+}
+func GetAccount(exName string) (*goex.Account, error) {
+	api := getExApi(exName)
+	return api.GetAccount()
 }
