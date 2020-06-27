@@ -26,6 +26,7 @@
 #FROM scratch
 #FROM golang:alpine as builder
 FROM alpine
+ENV GIN_MODE=release
 ##解决alpine无法访问https的问题
 #RUN apk update && \
 #   apk add ca-certificates && \
@@ -35,7 +36,7 @@ RUN apk --no-cache add ca-certificates
 WORKDIR /bylh/go-eth
 COPY . /bylh/go-eth
 EXPOSE 8001
-CMD ["GIN_MODE=release", "./go-eth"]
+CMD ["./go-eth"]
 
 #docker build -t go-eth . # 构建
 #docker run --name=news -p 8001:8001 -d go-eth # 运行
