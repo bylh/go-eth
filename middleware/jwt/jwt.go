@@ -17,7 +17,7 @@ func JWT() gin.HandlerFunc {
 		var data interface{}
 
 		code = e.SUCCESS
-		token := c.Request.Header.Get("token")
+		token := c.Request.Header.Get("Authorization")
 		if token == "" {
 			code = e.INVALID_PARAMS
 		} else {
@@ -30,6 +30,7 @@ func JWT() gin.HandlerFunc {
 					code = e.ERROR_AUTH_CHECK_TOKEN_FAIL
 				}
 			}
+
 			// 解析到具体的claims相关信息
 			c.Set("claims", claims)
 		}

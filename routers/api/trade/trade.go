@@ -1,6 +1,7 @@
 package trade
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"go-eth/pkg/app"
 	"go-eth/pkg/e"
@@ -21,5 +22,6 @@ func GetAllTickers(c *gin.Context) {
 func GetAccount(c *gin.Context) {
 	appG := app.Gin{C: c}
 	data, _ := trade_service.GetAccount(c.Query("exName"))
+	fmt.Println("data:124", data)
 	appG.Response(http.StatusOK, e.SUCCESS, data)
 }

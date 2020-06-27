@@ -138,7 +138,11 @@ func GetTicker(target string, base string) (*goex.Ticker, error) {
 	api := getExApi("BINANCE")
 	return api.GetTicker(goex.CurrencyPair{CurrencyA: goex.Currency{Symbol: target}, CurrencyB: goex.Currency{Symbol: base}})
 }
-func GetAccount(exName string) (*goex.Account, error) {
-	api := getExApi(exName)
-	return api.GetAccount()
+func GetAccount(exName string) ([]goex.Order, error) {
+	//api := getExApi(exName)
+	//return api.GetAccount()
+
+	return GetOpenOrders(map[string]string{
+		"exName": exName,
+	})
 }

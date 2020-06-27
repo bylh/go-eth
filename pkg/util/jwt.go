@@ -20,7 +20,11 @@ func GenerateToken(username, password string) (string, error) {
 	expireTime := nowTime.Add(3 * time.Hour)
 
 	claims := Claims{
-		EncodeMD5(username),
+		// TODO 暂时注释使用明文，使用MD5如何在后面拿到用户名？
+		//EncodeMD5(username),
+		//EncodeMD5(password),
+		username,
+		//password,
 		EncodeMD5(password),
 		jwt.StandardClaims{
 			ExpiresAt: expireTime.Unix(),
