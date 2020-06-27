@@ -42,19 +42,19 @@ func InitRouter() *gin.Engine {
 	//config.AllowCredentials = true
 	//r.Use(cors.New(config))
 	mode := gin.Mode()
-	if mode == gin.DebugMode || mode == gin.TestMode {
+	if mode == gin.DebugMode || mode == gin.TestMode || mode == gin.ReleaseMode {
 		// 生产环境的cors是在nginx配置的，测试环境要打开
 		r.Use(cors.New(cors.Options{
-			AllowedOrigins: []string{"http://local.bylh.top:3000",
-				"http://local.perceive.top:3000",
-				"https://perceive.top",
-				"https://bylh.top",
-				"http://localhost*"},
+			//AllowedOrigins: []string{"http://local.bylh.top:3000",
+			//	"http://local.perceive.top:3000",
+			//	"https://perceive.top",
+			//	"https://bylh.top",
+			//	"http://localhost*"},
 			AllowCredentials: true,
-			AllowedHeaders:   []string{"Authorization"},
+			//AllowedHeaders:   []string{"Authorization"},
 
 			// Enable Debugging for testing, consider disabling in production
-			Debug: true,
+			//Debug: true,
 		}))
 	}
 	r.Use(gin.Logger())
