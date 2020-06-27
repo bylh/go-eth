@@ -35,7 +35,7 @@ RUN apk --no-cache add ca-certificates
 WORKDIR /bylh/go-eth
 COPY . /bylh/go-eth
 EXPOSE 8001
-CMD ["./go-eth"]
+CMD ["GIN_MODE=release ./go-eth"]
 
 #docker build -t go-eth . # 构建
 #docker run --name=news -p 8001:8001 -d go-eth # 运行

@@ -1,6 +1,7 @@
 package routers
 
 import (
+	"fmt"
 	"net/http"
 
 	//"github.com/gin-contrib/sessions"
@@ -42,6 +43,7 @@ func InitRouter() *gin.Engine {
 	//config.AllowCredentials = true
 	//r.Use(cors.New(config))
 	mode := gin.Mode()
+	fmt.Println("mode:::", mode)
 	if mode == gin.DebugMode || mode == gin.TestMode {
 		// 生产环境的cors是在nginx配置的，测试环境要打开
 		r.Use(cors.New(cors.Options{
