@@ -70,9 +70,6 @@ func InitRouter() *gin.Engine {
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	r.POST("/upload", api.UploadImage)
 
-	r.GET("/trade/getOpenOrders", trade.GetOpenOrders)
-	r.GET("/trade/getAllTickers", trade.GetAllTickers)
-
 	r.GET("/newsTags", news.GetNewsTags)
 	r.GET("/news", news.GetNews)
 	r.GET("/souls", soul.GetSouls)
@@ -133,6 +130,8 @@ func InitRouter() *gin.Engine {
 	{
 		// 获取交易账户信息
 		apiv1.GET("/trade/account", trade.GetAccount)
+		apiv1.GET("/trade/getOpenOrders", trade.GetOpenOrders)
+		apiv1.GET("/trade/getAllTickers", trade.GetAllTickers)
 		//获取标签列表
 		apiv1.GET("/tags", v1.GetTags)
 		//新建标签

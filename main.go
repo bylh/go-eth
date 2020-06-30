@@ -12,6 +12,7 @@ import（.“fmt”）
 import (
 	"fmt"
 	_ "go-eth/docs"
+	"go-eth/service/news_service"
 	"log"
 
 	// 如果使用诸如 http.StatusOK 之类的常量，则需要引入 net/http 包
@@ -55,7 +56,7 @@ func init() {
 	util.Setup()
 
 	// 消息接口轮询任务
-	//news_service.Setup()
+	news_service.Setup()
 }
 
 // @title Golang Gin API
