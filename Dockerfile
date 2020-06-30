@@ -9,7 +9,7 @@
 #COPY . /bylh/go-eth
 #RUN CGO_ENABLED=0 go build .
 ## gin.SetMode(gin.ReleaseMode) 可以在程序中设置生产模式
-##RUN GIN_MODE=release go build .
+##RUN go build .
 #EXPOSE 8001
 #ENTRYPOINT ["./go-eth"]
 
