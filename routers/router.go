@@ -2,6 +2,7 @@ package routers
 
 import (
 	"fmt"
+	"go-eth/routers/api/soul"
 	"net/http"
 
 	//"github.com/gin-contrib/sessions"
@@ -74,6 +75,7 @@ func InitRouter() *gin.Engine {
 
 	r.GET("/newsTags", news.GetNewsTags)
 	r.GET("/news", news.GetNews)
+	r.GET("/souls", soul.GetSouls)
 	// https://github.com/gin-gonic/gin/issues/686
 	//apiProxy := r.Group("/hub")
 	//apiProxy.Use()
