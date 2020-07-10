@@ -1057,61 +1057,61 @@ func (spider Spider) GetKD() []map[string]interface{} {
 }
 
 /* -------------------------  Mop  ------------------------------- */
-func (spider Spider) GetMop() []map[string]interface{} {
-	url := "http://www.mop.com/"
-	timeout := time.Duration(5 * time.Second) //超时时间5s
-	client := &http.Client{
-		Timeout: timeout,
-	}
-	var Body io.Reader
-	request, err := http.NewRequest("GET", url, Body)
-	if err != nil {
-		fmt.Println("抓取" + spider.DataType + "失败")
-		return []map[string]interface{}{}
-	}
-	request.Header.Add("User-Agent", `Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36`)
-	request.Header.Add("Upgrade-Insecure-Requests", `1`)
-	res, err := client.Do(request)
+// func (spider Spider) GetMop() []map[string]interface{} {
+// 	url := "http://www.mop.com/"
+// 	timeout := time.Duration(5 * time.Second) //超时时间5s
+// 	client := &http.Client{
+// 		Timeout: timeout,
+// 	}
+// 	var Body io.Reader
+// 	request, err := http.NewRequest("GET", url, Body)
+// 	if err != nil {
+// 		fmt.Println("抓取" + spider.DataType + "失败")
+// 		return []map[string]interface{}{}
+// 	}
+// 	request.Header.Add("User-Agent", `Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36`)
+// 	request.Header.Add("Upgrade-Insecure-Requests", `1`)
+// 	res, err := client.Do(request)
 
-	if err != nil {
-		fmt.Println("抓取" + spider.DataType + "失败")
-		return []map[string]interface{}{}
-	}
-	defer res.Body.Close()
-	//str, _ := ioutil.ReadAll(res.Body)
-	//fmt.Println(string(str))
-	var allData []map[string]interface{}
-	document, err := goquery.NewDocumentFromReader(res.Body)
-	if err != nil {
-		fmt.Println("抓取" + spider.DataType + "失败")
-		return []map[string]interface{}{}
-	}
-	document.Find(".swiper-slide").Each(func(i int, selection *goquery.Selection) {
-		s := selection.Find("a").First()
-		url, boolUrl := s.Attr("href")
-		text := selection.Find("h2").Text()
-		if len(text) != 0 {
-			if boolUrl {
-				if len(allData) <= 100 {
-					allData = append(allData, map[string]interface{}{"title": string(text), "url": url})
-				}
-			}
-		}
-	})
-	document.Find(".tabel-right").Each(func(i int, selection *goquery.Selection) {
-		s := selection.Find("a").First()
-		url, boolUrl := s.Attr("href")
-		text := selection.Find("h3").Text()
-		if len(text) != 0 {
-			if boolUrl {
-				if len(allData) <= 100 {
-					allData = append(allData, map[string]interface{}{"title": string(text), "url": url})
-				}
-			}
-		}
-	})
-	return allData[:15]
-}
+// 	if err != nil {
+// 		fmt.Println("抓取" + spider.DataType + "失败")
+// 		return []map[string]interface{}{}
+// 	}
+// 	defer res.Body.Close()
+// 	//str, _ := ioutil.ReadAll(res.Body)
+// 	//fmt.Println(string(str))
+// 	var allData []map[string]interface{}
+// 	document, err := goquery.NewDocumentFromReader(res.Body)
+// 	if err != nil {
+// 		fmt.Println("抓取" + spider.DataType + "失败")
+// 		return []map[string]interface{}{}
+// 	}
+// 	document.Find(".swiper-slide").Each(func(i int, selection *goquery.Selection) {
+// 		s := selection.Find("a").First()
+// 		url, boolUrl := s.Attr("href")
+// 		text := selection.Find("h2").Text()
+// 		if len(text) != 0 {
+// 			if boolUrl {
+// 				if len(allData) <= 100 {
+// 					allData = append(allData, map[string]interface{}{"title": string(text), "url": url})
+// 				}
+// 			}
+// 		}
+// 	})
+// 	document.Find(".tabel-right").Each(func(i int, selection *goquery.Selection) {
+// 		s := selection.Find("a").First()
+// 		url, boolUrl := s.Attr("href")
+// 		text := selection.Find("h3").Text()
+// 		if len(text) != 0 {
+// 			if boolUrl {
+// 				if len(allData) <= 100 {
+// 					allData = append(allData, map[string]interface{}{"title": string(text), "url": url})
+// 				}
+// 			}
+// 		}
+// 	})
+// 	return allData[:15]
+// }
 
 /* -------------------------  Chippell  ------------------------------- */
 func (spider Spider) GetChiphell() []map[string]interface{} {

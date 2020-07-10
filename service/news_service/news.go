@@ -112,7 +112,7 @@ func FetchNews() []FetchData {
 		"KD",
 		"NGA",
 		"WeiXin",
-		"Mop",
+		// "Mop",
 		"Chiphell",
 		"JianDan",
 		"ChouTi",
