@@ -4,13 +4,14 @@ import (
 	"fmt"
 	"go-eth/routers/api/soul"
 	"net/http"
+	"net/http/httputil"
 
 	//"github.com/gin-contrib/sessions"
 	//"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
 	cors "github.com/rs/cors/wrapper/gin"
 
-	"github.com/swaggo/gin-swagger"
+	ginSwagger "github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
 
 	"go-eth/middleware/jwt"
@@ -20,8 +21,22 @@ import (
 	"go-eth/routers/api"
 	"go-eth/routers/api/news"
 	"go-eth/routers/api/trade"
-	"go-eth/routers/api/v1"
+	v1 "go-eth/routers/api/v1"
 )
+
+func reverseProxy(target string, scheme string) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		director := func(req *http.Request) {
+			// r := c.Request
+			// req = r
+			req.URL.Scheme = scheme
+			req.URL.Host = target
+			req.Host = target
+		}
+		proxy := &httputil.ReverseProxy{Director: director}
+		proxy.ServeHTTP(c.Writer, c.Request)
+	}
+}
 
 // InitRouter initialize routing information
 func InitRouter() *gin.Engine {
@@ -124,6 +139,12 @@ func InitRouter() *gin.Engine {
 	//		})
 	//	})
 	//}
+
+	// proxy
+	r.GET("/rbac_api/v1/users/mine", reverseProxy("testkbpserv.yunxiao.com", "http"))
+	r.GET("/news/types", reverseProxy("bylh.top:3001", "https"))
+
+
 	r.POST("/login", api.Login)
 	apiv1 := r.Group("/api/v1")
 	apiv1.Use(jwt.JWT())
