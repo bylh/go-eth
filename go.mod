@@ -12,6 +12,7 @@ require (
 	github.com/boombuler/barcode v1.0.0
 	github.com/deckarep/golang-set v1.7.1 // indirect
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
+	github.com/ethereum/go-ethereum v1.9.22
 	github.com/gin-contrib/cors v1.3.1
 	github.com/gin-contrib/sessions v0.0.3
 	github.com/gin-gonic/gin v1.5.0
@@ -31,10 +32,8 @@ require (
 	github.com/swaggo/swag v1.6.2
 	github.com/tealeg/xlsx v1.0.3
 	github.com/valyala/fasthttp v1.14.0 // indirect
-	golang.org/x/image v0.0.0-20190729225735-1bd0cf576493 // indirect
 	golang.org/x/mod v0.3.0 // indirect
-	golang.org/x/net v0.0.0-20200625001655-4c5254603344 // indirect
-	golang.org/x/text v0.3.2
+	golang.org/x/text v0.3.3
 	golang.org/x/tools v0.0.0-20200624225443-88f3c62a19ff // indirect
 	gopkg.in/ini.v1 v1.49.0 // indirect
 )
