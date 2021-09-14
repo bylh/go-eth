@@ -24,7 +24,7 @@
 # 第一步 手动打包 CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o go-eth .
 
 #FROM scratch
-#FROM golang:alpine as builder
+# FROM golang:alpine as builder
 FROM alpine
 ENV GIN_MODE=release
 ##解决alpine无法访问https的问题
@@ -33,8 +33,12 @@ ENV GIN_MODE=release
 #   update-ca-certificates && \
 #   rm -rf /var/cache/apk/*
 RUN apk --no-cache add ca-certificates
+# RUN mkdir /bylh
+# RUN mkdir /bylh/go-eth
 WORKDIR /bylh/go-eth
 COPY . /bylh/go-eth
+# RUN CGO_ENABLED=0 go build .
+# RUN go build .
 EXPOSE 8001
 CMD ["./go-eth"]
 
